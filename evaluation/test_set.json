@@ -1,0 +1,62 @@
+[
+    {
+        "question": "What are the common symptoms of influenza?",
+        "expected_answer": "Fever, cough, sore throat, runny or stuffy nose, body aches, headache, chills, fatigue."
+    },
+    {
+        "question": "How can I prevent type 2 diabetes?",
+        "expected_answer": "Lose extra weight, be more physically active, eat healthy plant foods, eat healthy fats, skip fad diets."
+    },
+    {
+        "question": "What is the recommended amount of physical activity for adults?",
+        "expected_answer": "At least 150 minutes of moderate-intensity aerobic activity or 75 minutes of vigorous-intensity aerobic activity per week."
+    },
+    {
+        "question": "What are the first aid steps for a burn?",
+        "expected_answer": "Cool the burn with cool running water, remove tight items, don't break blisters, apply lotion, bandage the burn."
+    },
+    {
+        "question": "When should I see a doctor for a headache?",
+        "expected_answer": "If it feels like the worst headache of your life, is accompanied by fever, stiff neck, confusion, seizure, double vision, weakness, numbness, or difficulty speaking."
+    },
+    {
+        "question": "Is it safe to take ibuprofen during pregnancy?",
+        "expected_answer": "It is generally not recommended, especially during the last 3 months of pregnancy, as it may cause problems in the unborn baby or complications during delivery."
+    },
+    {
+        "question": "What is high blood pressure?",
+        "expected_answer": "A condition where the force of the blood against the artery walls is too high, usually defined as 130/80 mm Hg or higher."
+    },
+    {
+        "question": "What are the benefits of quitting smoking?",
+        "expected_answer": "Lowers risk of lung cancer and other cancers, reduces risk of heart disease/stroke, improves lung function, reduces coughing and shortness of breath."
+    },
+    {
+        "question": "How specific is the link between sugar and cancer?",
+        "expected_answer": "There is no direct proof that sugar causes cancer, but high sugar intake can lead to obesity, which is a risk factor for several types of cancer."
+    },
+    {
+        "question": "How often should adults get a tetanus shot?",
+        "expected_answer": "Every 10 years."
+    },
+    {
+        "question": "What are the symptoms of a stroke?",
+        "expected_answer": "Sudden numbness or weakness in the face, arm, or leg (especially on one side), confusion, trouble speaking/seeing/walking, severe headache."
+    },
+    {
+        "question": "What acts as a trigger for asthma?",
+        "expected_answer": "Tobacco smoke, dust mites, outdoor air pollution, cockroach allergen, pets, mold, smoke from burning wood or grass."
+    },
+    {
+        "question": "How much water should I drink daily?",
+        "expected_answer": "About 15.5 cups (3.7 liters) for men and 11.5 cups (2.7 liters) for women, though this varies by activity level and climate."
+    },
+    {
+        "question": "What is the difference between specific viral and bacterial infections?",
+        "expected_answer": "Viral infections are caused by viruses and cannot be treated with antibiotics; bacterial infections are caused by bacteria and killed by antibiotics."
+    },
+    {
+        "question": "What is sleep apnea?",
+        "expected_answer": "A potentially serious sleep disorder in which breathing repeatedly stops and starts."
+    }
+]
