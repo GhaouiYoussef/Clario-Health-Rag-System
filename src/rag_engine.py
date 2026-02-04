@@ -1,72 +1,129 @@
-from typing import List, Dict, Any
-from langchain_core.documents import Document
-from langchain_chroma import Chroma
-from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.chains import RetrievalQA
-from langchain.prompts import PromptTemplate
 import os
+import chromadb
+import google.generativeai as genai
+from typing import List, Dict, Any, Optional
+from src.models import SourceDocument
+from dotenv import load_dotenv
+# Configure GenAI
+# .env is in a parent directory
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
+
+genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
+
+class GeminiEmbeddingFunction(chromadb.EmbeddingFunction):
+    def __call__(self, input: chromadb.Documents) -> chromadb.Embeddings:
+        # Gemini embedding model supports batching, but let's be safe
+        model = "models/embedding-001"
+        return [
+            genai.embed_content(
+                model=model,
+                content=text,
+                task_type="retrieval_document"
+            )["embedding"]
+            for text in input
+        ]
 
 class HealthcareRAG:
     def __init__(self, persist_directory: str = "./data/chroma_db"):
         self.persist_directory = persist_directory
-        self.embedding_function = GoogleGenerativeAIEmbeddings(model="gemini-embedding-001")
-        self.vector_store = None
-        self.llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash-lite", temperature=0) # Low temperature for factual accuracy
+        self.client = chromadb.PersistentClient(path=persist_directory)
+        self.embedding_function = GeminiEmbeddingFunction()
+        self.collection = self.client.get_or_create_collection(
+            name="healthcare_docs",
+            embedding_function=self.embedding_function
+        )
+        self.model = genai.GenerativeModel('gemini-1.5-flash')
 
-    def ingest_documents(self, documents: List[Document]):
-        """Splits documents and creates/updates the vector store."""
-        text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000,
-            chunk_overlap=200,
-            separators=["\n\n", "\n", " ", ""]
-        )
-        splits = text_splitter.split_documents(documents)
+    def split_text(self, text: str, chunk_size: int = 1000, overlap: int = 200) -> List[str]:
+        """Simple recursive-like splitting strategy."""
+        chunks = []
+        if not text:
+            return chunks
         
-        self.vector_store = Chroma.from_documents(
-            documents=splits,
-            embedding=self.embedding_function,
-            persist_directory=self.persist_directory
-        )
-        print(f"Ingested {len(splits)} chunks into vector store.")
+        start = 0
+        while start < len(text):
+            end = start + chunk_size
+            chunk = text[start:end]
+            chunks.append(chunk)
+            start += (chunk_size - overlap)
+        return chunks
+
+    def ingest_documents(self, documents: List[SourceDocument]):
+        """Splits documents and adds them to ChromaDB."""
+        ids = []
+        embeddings_texts = []
+        metadatas = []
+
+        for doc in documents:
+            chunks = self.split_text(doc.page_content)
+            for i, chunk in enumerate(chunks):
+                # Unique ID
+                chunk_id = f"{doc.metadata.get('source', 'doc')}_p{doc.metadata.get('page', 0)}_{i}"
+                ids.append(chunk_id)
+                embeddings_texts.append(chunk)
+                # Helper to clean metadata for Chroma (no nested lists/dicts)
+                clean_meta = {k: str(v) for k, v in doc.metadata.items()}
+                metadatas.append(clean_meta)
+
+        # Batch add to avoid limits if necessary, though Chroma handles reasonable batch sizes
+        if ids:
+            # Upsert ensures we update if ID exists
+            self.collection.upsert(
+                ids=ids,
+                documents=embeddings_texts,
+                metadatas=metadatas
+            )
+            print(f"Ingested {len(ids)} chunks into vector store.")
+        else:
+            print("No text to ingest.")
 
     def get_answer(self, query: str) -> Dict[str, Any]:
-        """Retrieves context and generates an answer with citations."""
-        if not self.vector_store:
-             # Try determining if one exists on disk
-            if os.path.exists(self.persist_directory):
-                 self.vector_store = Chroma(persist_directory=self.persist_directory, embedding_function=self.embedding_function)
-            else:
-                return {"result": "Vector store not initialized. Please ingest documents first.", "source_documents": []}
+        """Retrieves context and generates answer using Gemini directly."""
+        
+        # 1. Retrieve
+        results = self.collection.query(
+            query_texts=[query],
+            n_results=4
+        )
+        
+        retrieved_docs = results['documents'][0] if results['documents'] else []
+        retrieved_metas = results['metadatas'][0] if results['metadatas'] else []
 
-        # Custom Prompt for Safety and Citations
-        prompt_template = """Use the following pieces of context to answer the question at the end. 
+        context_parts = []
+        source_docs = [] # For return format compatibility
+        
+        for i, doc_text in enumerate(retrieved_docs):
+            meta = retrieved_metas[i]
+            source_info = f"Source: {meta.get('source', 'Unknown')}, Page: {meta.get('page', '?')}"
+            context_parts.append(f"[{source_info}]\n{doc_text}")
+            source_docs.append({"page_content": doc_text, "metadata": meta})
+
+        context_str = "\n\n".join(context_parts)
+
+        # 2. Generate
+        prompt = f"""Use the following pieces of context to answer the question at the end. 
         If you don't know the answer based on the context, just say that you don't know, don't try to make up an answer.
         
         IMPORTANT SAFETY GUIDELINES:
         - You are a helpful healthcare assistant, but you are NOT a doctor.
         - Do not provide medical diagnoses or prescribe treatments.
         - If the user describes severe symptoms, recommend seeking urgent professional care.
-        - Always cite your sources from the context provided.
+        - Always cite your sources from the context provided using the format [Source: ..., Page: ...].
         
         Context:
-        {context}
+        {context_str}
         
-        Question: {question}
+        Question: {query}
         
-        Answer (include citations in format [Source: Page X]):"""
-        
-        PROMPT = PromptTemplate(
-            template=prompt_template, input_variables=["context", "question"]
-        )
+        Answer:"""
 
-        qa_chain = RetrievalQA.from_chain_type(
-            llm=self.llm,
-            chain_type="stuff",
-            retriever=self.vector_store.as_retriever(search_kwargs={"k": 4}),
-            return_source_documents=True,
-            chain_type_kwargs={"prompt": PROMPT}
-        )
+        try:
+            response = self.model.generate_content(prompt)
+            answer = response.text
+        except Exception as e:
+            answer = f"Error generating answer: {e}"
 
-        result = qa_chain.invoke({"query": query})
-        return result
+        return {
+            "result": answer,
+            "source_documents": source_docs
+        }
