@@ -19,7 +19,7 @@ def extract_pdf_elements(file_path: str, images_output_dir: str) -> List[SourceD
     if not os.path.exists(images_output_dir):
         os.makedirs(images_output_dir)
 
-    doc = PyMuPDF.open(file_path)
+    doc = fitz.open(file_path)
     file_name = os.path.basename(file_path)
     documents = []
 

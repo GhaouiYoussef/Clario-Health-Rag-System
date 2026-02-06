@@ -1,0 +1,152 @@
+[
+  {
+    "question": "What are the four 'Emergency Action Steps' recommended by the American Red Cross when responding to an emergency?",
+    "answer": "The manual lists the emergency action steps as: 1. CHECK the scene and the person, 2. CALL 9-1-1 or the local emergency number, and 3. CARE for the person.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 8
+  },
+  {
+    "question": "According to the diabetes guide, what is the target blood glucose range for a person with diabetes before meals?",
+    "answer": "The target blood glucose level before meals is 70 to 130 mg/dL.",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 8
+  },
+  {
+    "question": "What is the primary purpose of the 'General Principles' module in the WHO Toolkit for Analysis and Use of Routine Health Facility Data?",
+    "answer": "The 'General Principles' module introduces key data analysis concepts that are applicable to all other modules in the toolkit, which is designed to optimize the analysis and use of data collected from health facilities.",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 2
+  },
+  {
+    "question": "How should a caregiver obtain permission to give care to a conscious person during an emergency?",
+    "answer": "The caregiver must identify themselves, state their level of training, explain what they think is wrong, describe the planned care, and then ask the person for permission to give care.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 5
+  },
+  {
+    "question": "In the context of Routine Health Information Systems (RHIS), what are the two main types of reporting completeness that should be assessed?",
+    "answer": "The two types are: 1. Completeness of facility reports submitted to the district level, and 2. Completeness of district reports submitted to the provincial or national level.",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 18
+  },
+  {
+    "question": "What should a person with diabetes do if their blood glucose level falls below 70 mg/dL?",
+    "answer": "They should immediately consume 15 grams of fast-acting carbohydrate, such as 3 or 4 glucose tablets, 1/2 cup of fruit juice, or 1 tablespoon of sugar/honey, then recheck after 15 minutes.",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 7
+  },
+  {
+    "question": "What are the specific steps for placing a person in a modified H.A.IN.E.S. recovery position?",
+    "answer": "The manual describes the H.A.IN.E.S. (High Arm in Endangered Spine) position as a way to keep the airway open while protecting the spine, often used if the caregiver must leave the person to call 9-1-1.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 22
+  },
+  {
+    "question": "Why is it difficult to analyze health equity using only Routine Health Information System (RHIS) data?",
+    "answer": "Socioeconomic data (like wealth or education) are not usually collected in RHIS because recording it is time-consuming, and accurate analysis requires population-based data to include those not using facilities.",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 26
+  },
+  {
+    "question": "How many calories a day are recommended for a small woman who exercises or a medium-sized woman who wants to lose weight according to the diabetes meal plan?",
+    "answer": "The recommended intake is 1,200 to 1,600 calories per day.",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 9
+  },
+  {
+    "question": "What specific instructions are given for administering medication via an asthma inhaler?",
+    "answer": "The person should place their lips tightly around the mouthpiece and take a long, slow breath while the canister is pressed down; they should then try to hold their breath for a count of 10.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 153
+  },
+  {
+    "question": "What are 'Advanced Directives' and why are they important in cardiac emergencies?",
+    "answer": "Advanced directives are instructions describing a person's wishes about medical treatment, which help loved ones avoid difficult last-second decisions about lifesaving treatments like CPR.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 37
+  },
+  {
+    "question": "What is the recommended serving count for 'Starches' in a 1,600 to 2,000 calorie diabetes meal plan?",
+    "answer": "The plan recommends 8 servings of starches per day.",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 10
+  },
+  {
+    "question": "What is the 'Cardiac Chain of Survival'?",
+    "answer": "It is a sequence of actions that maximize the chance of survival from cardiac arrest, including early recognition, early CPR, early defibrillation, and early advanced medical care.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 33
+  },
+  {
+    "question": "What are the common symptoms of hypoglycemia (low blood glucose)?",
+    "answer": "Symptoms include feeling shaky, weak, confused, irritable, hungry, tired, sweating a lot, or having a headache.",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 7
+  },
+  {
+    "question": "According to the WHO toolkit, what is one major limitation of health facility data?",
+    "answer": "Health facility data only provides information on the people who actually use the facilities, potentially missing marginalized or nomadic groups who lack access.",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 12
+  },
+  {
+    "question": "What should be used to clean up a spill of blood or body fluids to prevent disease transmission?",
+    "answer": "Use a solution of 1 part bleach to 9 parts water (approximately 1.5 cups of bleach per gallon of water) and let it stand for at least 10 minutes.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 8
+  },
+  {
+    "question": "What is an A1C test and how often should a person with diabetes have one?",
+    "answer": "An A1C test measures the average blood glucose for the past 3 months; it should be performed at least twice a year.",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 2
+  },
+  {
+    "question": "Where should a manufactured tourniquet be positioned on an injured limb?",
+    "answer": "It should be placed approximately 2 inches (about two finger widths) above the wound, but not over a joint.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 115
+  },
+  {
+    "question": "In the diabetes food pyramid, which food groups are highest in carbohydrate and affect blood glucose levels the most?",
+    "answer": "The groups highest in carbohydrate are starches, fruits, vegetables, and milk.",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 8
+  },
+  {
+    "question": "What comparison is recommended to validate the quality and representativeness of RHIS data?",
+    "answer": "It is good practice to compare RHIS data with other sources, such as population-based household surveys, using tables and charts.",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 26
+  },
+  {
+    "question": "What are the indicators of 'incident stress' after responding to an emergency?",
+    "answer": "Indicators include uncharacteristic humor or silence, unusual behavior, and difficulty performing one's job.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 23
+  },
+  {
+    "question": "What precautions should a person with diabetes take regarding their feet when exercising?",
+    "answer": "They should ensure shoes fit well and socks are clean/dry, and check their feet for redness or sores after exercising.",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 6
+  },
+  {
+    "question": "What are the primary components of a 'Head-to-Toe' check for a conscious person?",
+    "answer": "The check involves interviewing the person and bystanders (asking about allergies, medical conditions, and medications) and then physically checking from head to toe for signs of injury.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 15
+  },
+  {
+    "question": "What population targets are typically estimated in the WHO toolkit's Annex 3?",
+    "answer": "Annex 3 focuses on estimating population targets for maternal health and immunization, such as estimated pregnancies, live births, and surviving infants.",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 39
+  },
+  {
+    "question": "What is the recommended procedure if a person is unconscious and has vomit in their mouth?",
+    "answer": "The person should be positioned on one side to allow fluids to drain out of the mouth, and any material should be cleared with a finger.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 74
+  }
+]

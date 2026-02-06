@@ -1,0 +1,12 @@
+{
+    "models": {
+        "gemini-2.0-flash": {
+            "embedding_cost_per_1M_tokens": 0.1,
+            "generation_cost_per_1M_tokens": 0.4
+        }
+    },
+        "gemini-2.5-flash-lite": {
+            "embedding_cost_per_1M_tokens": 0.1,
+            "generation_cost_per_1M_tokens": 0.4
+        }
+}

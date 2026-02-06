@@ -9,4 +9,5 @@ numpy
 tqdm
 PyMuPDF
 google-generativeai
+sentence-transformers==5.2.2
 

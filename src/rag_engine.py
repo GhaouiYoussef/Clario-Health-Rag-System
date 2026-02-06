@@ -1,39 +1,44 @@
 import os
 import chromadb
-import google.generativeai as genai
+import google.genai as genai
 from typing import List, Dict, Any, Optional
 from src.models import SourceDocument
 from dotenv import load_dotenv
+import json
+from sentence_transformers import SentenceTransformer
+
 # Configure GenAI
 # .env is in a parent directory
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
-genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
+CLIENT = genai.Client(api_key=os.environ.get("GOOGLE_API_KEY"))
 
-class GeminiEmbeddingFunction(chromadb.EmbeddingFunction):
+class HuggingFaceEmbeddingFunction(chromadb.EmbeddingFunction):
+    def __init__(self, model_name="all-MiniLM-L6-v2", device="cpu"):
+        self.model = SentenceTransformer(model_name, device=device)
+
     def __call__(self, input: chromadb.Documents) -> chromadb.Embeddings:
-        # Gemini embedding model supports batching, but let's be safe
-        model = "models/embedding-001"
-        return [
-            genai.embed_content(
-                model=model,
-                content=text,
-                task_type="retrieval_document"
-            )["embedding"]
-            for text in input
-        ]
+        # SentenceTransformer encodes to numpy array, convert to list
+        embeddings = self.model.encode(input, convert_to_tensor=False)
+        return embeddings.tolist()
 
 class HealthcareRAG:
-    def __init__(self, persist_directory: str = "./data/chroma_db"):
+    def __init__(self, persist_directory: str = "./data/chroma_db", model_name: str = "gemini-1.5-flash"):
         self.persist_directory = persist_directory
         self.client = chromadb.PersistentClient(path=persist_directory)
-        self.embedding_function = GeminiEmbeddingFunction()
+        self.embedding_function = HuggingFaceEmbeddingFunction()
         self.collection = self.client.get_or_create_collection(
             name="healthcare_docs",
             embedding_function=self.embedding_function
         )
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
-
+        self.client_gemini = CLIENT
+        self.model_name = model_name
+    def generate_content(self, prompt: str) -> Any:
+        response = self.client_gemini.models.generate_content(
+            model=self.model_name,
+            contents=prompt
+        )
+        return response
     def split_text(self, text: str, chunk_size: int = 1000, overlap: int = 200) -> List[str]:
         """Simple recursive-like splitting strategy."""
         chunks = []
@@ -94,6 +99,7 @@ class HealthcareRAG:
         
         for i, doc_text in enumerate(retrieved_docs):
             meta = retrieved_metas[i]
+            print(f"Retrieved Doc {i+1} Metadata: {meta}")
             source_info = f"Source: {meta.get('source', 'Unknown')}, Page: {meta.get('page', '?')}"
             context_parts.append(f"[{source_info}]\n{doc_text}")
             source_docs.append({"page_content": doc_text, "metadata": meta})
@@ -118,12 +124,23 @@ class HealthcareRAG:
         Answer:"""
 
         try:
-            response = self.model.generate_content(prompt)
+            response = self.generate_content(
+                prompt=prompt,
+                # model_name="gemini-2.5-flash-lite"
+            )
             answer = response.text
+            usage = response.usage_metadata
+            token_usage = {
+                "prompt_tokens": usage.prompt_token_count,
+                "completion_tokens": usage.candidates_token_count,
+                "total_tokens": usage.total_token_count
+            }
         except Exception as e:
             answer = f"Error generating answer: {e}"
+            token_usage = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
 
         return {
             "result": answer,
-            "source_documents": source_docs
+            "source_documents": source_docs,
+            "token_usage": token_usage
         }
