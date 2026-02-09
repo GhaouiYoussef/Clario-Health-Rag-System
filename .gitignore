@@ -42,3 +42,4 @@ data/chroma*
 
 *.sqlite3
 data/extracted_images
+data/images
