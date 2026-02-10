@@ -1,7 +1,22 @@
 [
-  {"doc_path": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual-CURATED", "chapter_font_size": 29},
-  {"doc_path": "general-principles-2021-01-21-final-CURATED", "chapter_font_size": 21},
-  {"doc_path": "Guidelines on Core Components of Infection Prevention and Control Programmes-CURATED", "chapter_font_size": 13},
-  {"doc_path": "Healthy-WHO-CURATED", "chapter_font_size": 32},
-  {"doc_path": "Outpatient-Guide-508-CURATED", "chapter_font_size": 18}
+  {
+    "doc_path": "doc_005",
+    "chapter_font_size": 21
+  },
+  {
+    "doc_path": "doc_004",
+    "chapter_font_size": 18
+  },
+  {
+    "doc_path": "doc_003",
+    "chapter_font_size": 32
+  },
+  {
+    "doc_path": "doc_002",
+    "chapter_font_size": 13
+  },
+  {
+    "doc_path": "doc_001",
+    "chapter_font_size": 29
+  }
 ]

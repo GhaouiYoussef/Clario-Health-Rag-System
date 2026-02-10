@@ -36,3 +36,10 @@ def load_documents(directory_path: str) -> List[SourceDocument]:
                 print(f"Error loading {filename}: {e}")
     
     return documents
+def  get_file_name(file_path):
+    '''
+    Remove directory and extension from file path to get the base name.
+    '''
+    base_name = os.path.basename(file_path)  # Get file name with extension
+    name_without_ext = os.path.splitext(base_name)[0]  # Remove extension
+    return name_without_ext
