@@ -1,0 +1,149 @@
+[
+  {
+    "question": "What is the recommended depth and rate for chest compressions when performing CPR on a child?",
+    "answer": "According to the text, when performing CPR on a child, rescuers should push hard and fast to a depth of about 2 inches and at a rate of at least 100 compressions per minute.",
+    "source_snippet": "Push hard, push fast to a depth of about 2 inches and at a rate of at least 100 compressions per minute",
+    "retrieval_seed_query": "standard CPR procedure steps",
+    "primary_source_doc": "doc_001"
+  },
+  {
+    "question": "What actions should a rescuer take after an AED delivers a shock or if no shock is advised?",
+    "answer": "After delivering the shock, or if no shock is advised, the rescuer should perform about 2 minutes (or 5 cycles) of CPR and continue to follow the prompts of the AED.",
+    "source_snippet": "After delivering the shock, or if no shock is advised: Perform about 2 minutes (or 5 cycles) of CPR. Continue to follow the prompts of the AED",
+    "retrieval_seed_query": "standard CPR procedure steps",
+    "primary_source_doc": "doc_001"
+  },
+  {
+    "question": "What should a rescuer do if a conscious choking adult becomes unconscious?",
+    "answer": "If a conscious choking adult becomes unconscious, the rescuer should call 9-1-1 if not already done, carefully lower the person to the ground, and begin CPR starting with compressions.",
+    "source_snippet": "CALL 9-1-1, if not already done. Carefully lower the person to the ground and begin CPR, starting with compressions",
+    "retrieval_seed_query": "standard CPR procedure steps",
+    "primary_source_doc": "doc_001"
+  },
+  {
+    "question": "What forms of sugar can be administered to a conscious diabetic person who is able to swallow during a diabetic emergency?",
+    "answer": "According to the text, if the diabetic person is conscious and able to swallow, you should give sugar in the form of several glucose tablets or glucose paste, a 12-ounce serving of fruit juice, milk, nondiet soft drink, or table sugar dissolved in a glass of water.",
+    "source_snippet": "If the diabetic person is conscious and able to swallow, and advises you that he or she needs sugar, give sugar in the form of several glucose tablets or glucose paste, a 12-ounce serving of fruit juice, milk, nondiet soft drink or table sugar dissolved in a glass of water",
+    "retrieval_seed_query": "symptoms of type 2 diabetes",
+    "primary_source_doc": "doc_001"
+  },
+  {
+    "question": "What are the signals that indicate a person may be going into shock?",
+    "answer": "The text states that signals of shock include restlessness or irritability, altered level of consciousness, nausea or vomiting, pale, ashen or grayish cool and moist skin, rapid breathing and pulse, and excessive thirst.",
+    "source_snippet": "The signals that indicate a person may be going into shock include: Restlessness or irritability. Altered level of consciousness. Nausea or vomiting. Pale, ashen or grayish, cool, moist skin. Rapid breathing and pulse. Excessive thirst.",
+    "retrieval_seed_query": "symptoms of type 2 diabetes",
+    "primary_source_doc": "doc_001"
+  },
+  {
+    "question": "What does the RICE mnemonic stand for when providing care for injuries to muscles, bones, and joints?",
+    "answer": "The document explains that RICE stands for Rest (do not move or straighten the injured area), Immobilize (stabilize the injured area in the position it was found), Cold (apply ice to the injured area for periods of about 20 minutes with a thin barrier between ice and skin), and Elevate (elevate the injured part only if it does not cause more pain).",
+    "source_snippet": "General care for injuries to muscles, bone and joints includes following the mnemonic RICE: R est Do not move or straighten the injured area. I mmobilize Stabilize the injured area in the position it was found... C old Fill a plastic bag with ice and water or wrap ice with a damp cloth and apply ice to the injured area for periods of about 20 minutes... E levate Elevate the injured part only if it does not cause more pain.",
+    "retrieval_seed_query": "symptoms of type 2 diabetes",
+    "primary_source_doc": "doc_001"
+  },
+  {
+    "question": "When should masks be offered to coughing patients in outpatient settings according to Respiratory Hygiene/Cough Etiquette guidelines?",
+    "answer": "According to the text, masks should be offered to coughing patients and other symptomatic persons upon entry to the facility, at a minimum, during periods of increased respiratory infection activity in the community.",
+    "source_snippet": "Offer masks to coughing patients and other symptomatic persons upon entry to the facility, at a minimum, during periods of increased respiratory infection activity in the community.",
+    "retrieval_seed_query": "treatment for seasonal influenza",
+    "primary_source_doc": "doc_004"
+  },
+  {
+    "question": "What is the recommended timing for taking prescribed medications before exercising for a person with exercise-induced asthma?",
+    "answer": "According to the document, prescribed medications should be taken 30 to 60 minutes before exercising to help prevent asthma attacks during physical activity.",
+    "source_snippet": "Take prescribed medications 30 to 60 minutes before exercising.",
+    "retrieval_seed_query": "treatment for seasonal influenza",
+    "primary_source_doc": "doc_004"
+  },
+  {
+    "question": "What is the minimum recommended ratio of infection preventionists to hospital beds according to the Guidelines Development Group?",
+    "answer": "The Guidelines Development Group recommends that at least one infection preventionist per 250 beds should be available, though they suggest considering a higher ratio of one per 100 beds due to increasing patient acuity and complexity.",
+    "source_snippet": "per 250 beds (37) should be available... the Guidelines Development Group suggested a ratio of one infection preventionist to 100 hospital beds, but no less than the recommended one infection preventionist to 250 hospital beds",
+    "retrieval_seed_query": "treatment for seasonal influenza",
+    "primary_source_doc": "doc_004"
+  },
+  {
+    "question": "What are the two forms of asthma medications and how do they differ?",
+    "answer": "According to the text, asthma medications are available as long-term control medications and quick-relief medications. Long-term control medications prevent or reverse inflammation in the airway, decrease sensitivity, and should be taken every day. Quick-relief medications, also called short-acting bronchodilators, are used to stop an asthma attack by working quickly to relieve sudden swelling and lessen wheezing, coughing, and chest tightness.",
+    "source_snippet": "Asthma medications are available in two forms: long-term control and quick relief... Long-term control medications prevent or reverse inflammation (swelling) in the airway... They should be taken every day whether or not signals of asthma are present. Quick-Relief Medications Quick-relief or rescue medications are used to stop an asthma attack... They also are called short-acting bronchodilators.",
+    "retrieval_seed_query": "asthma attack management",
+    "primary_source_doc": "doc_001"
+  },
+  {
+    "question": "How many deaths are caused by anaphylaxis annually in the United States, and which foods most commonly cause fatal allergic reactions?",
+    "answer": "The text states that between 400 and 800 deaths are caused by anaphylaxis every year in the United States. Peanuts and tree nuts cause the most cases of fatal and near-fatal allergic reactions to food.",
+    "source_snippet": "Every year in the United States, between 400 and 800 deaths are caused by anaphylaxis... Peanuts and tree nuts cause the most cases of fatal and near-fatal allergic reactions to food.",
+    "retrieval_seed_query": "asthma attack management",
+    "primary_source_doc": "doc_001"
+  },
+  {
+    "question": "How do heart attack signals in women differ from those in men?",
+    "answer": "While both men and women experience chest pain or discomfort, women are somewhat more likely to experience other warning signals such as shortness of breath, nausea or vomiting, back or jaw pain, and unexplained fatigue. Women may also experience atypical chest pain described as sudden, sharp but short-lived pain outside of the breastbone.",
+    "source_snippet": "Both men and women experience the most common signal for a heart attack: chest pain or discomfort. However, it is important to note that women are somewhat more likely to experience some of the other warning signals, particularly shortness of breath, nausea or vomiting, back or jaw pain and unexplained fatigue or malaise. When they do experience chest pain, women may have a greater tendency to have atypical chest pain: sudden, sharp but short-lived pain outside of the breastbone.",
+    "retrieval_seed_query": "asthma attack management",
+    "primary_source_doc": "doc_001"
+  },
+  {
+    "question": "What is the recommended daily limit for salt intake to help prevent hypertension and reduce the risk of heart disease and stroke?",
+    "answer": "According to the text, keeping salt intake to less than 5 g per day helps prevent hypertension and reduces the risk of heart disease and stroke in the adult population.",
+    "source_snippet": "Keeping salt intake to less than 5 g per day helps prevent hypertension and reduces the risk of heart disease and stroke in the adult population",
+    "retrieval_seed_query": "dietary guidelines for obesity",
+    "primary_source_doc": "doc_003"
+  },
+  {
+    "question": "What strategies are recommended for infection prevention and control education for health care workers?",
+    "answer": "The panel recommends that infection prevention and control education should be in place for all health care workers by utilizing team- and task-based strategies that are participatory and include bedside and simulation training to reduce the risk of health care-associated infection and antimicrobial resistance.",
+    "source_snippet": "The panel recommends that infection prevention and control education should be in place for all health care workers by utilizing team- and task-based strategies that are participatory and include bedside and simulation training to reduce the risk of health care-associated infection and antimicrobial resistance",
+    "retrieval_seed_query": "dietary guidelines for obesity",
+    "primary_source_doc": "doc_003"
+  },
+  {
+    "question": "What is the purpose of a core indicator list in routine health information systems?",
+    "answer": "According to the document, a core indicator list consists of a limited set of key indicators that focuses data analysis on the most important indicators needed on a regular basis to monitor health services and inform decisions at various levels of the health system.",
+    "source_snippet": "A core indicator list consists of a limited set of key indicators. The core routine health information system indicator list focuses data analysis on the most important indicators needed on a regular basis to monitor health services and inform decisions at various levels of the health system",
+    "retrieval_seed_query": "dietary guidelines for obesity",
+    "primary_source_doc": "doc_003"
+  },
+  {
+    "question": "What should you do if a person who has fainted begins to vomit while waiting for help to arrive?",
+    "answer": "According to the text, if the person vomits, you should roll him or her onto one side.",
+    "source_snippet": "If the person vomits, roll him or her onto one side.",
+    "retrieval_seed_query": "mental health depression signs",
+    "primary_source_doc": "doc_001"
+  },
+  {
+    "question": "What is the recommended dose of epinephrine in an auto-injector for adults experiencing anaphylaxis?",
+    "answer": "The text states that an auto-injector contains a preloaded dose of 0.3 mg of epinephrine for adults.",
+    "source_snippet": "An auto-injector contains a preloaded dose of 0.3 mg of epinephrine for adults or 0.15 mg of epinephrine for children weighing 33 to 66 pounds.",
+    "retrieval_seed_query": "mental health depression signs",
+    "primary_source_doc": "doc_001"
+  },
+  {
+    "question": "Why are older adults at greater risk of serious head injury compared to younger individuals?",
+    "answer": "According to the text, as we age, the size of the brain decreases, resulting in more space between the surface of the brain and the inside of the skull. This space allows more movement of the brain within the skull, which can increase the likelihood of serious head injury.",
+    "source_snippet": "As we age, the size of the brain decreases. This decrease results in more space between the surface of the brain and the inside of the skull. This space allows more movement of the brain within the skull, which can increase the likelihood of serious head injury.",
+    "retrieval_seed_query": "mental health depression signs",
+    "primary_source_doc": "doc_001"
+  },
+  {
+    "question": "What are the essential organizational components of a national infection prevention and control programme?",
+    "answer": "According to the context, the organization of national infection prevention and control programmes should include at least the following components: an appointed technical team of trained infection preventionists (including medical and nursing professionals) with formal infection prevention and control training and allocated time according to tasks; the team should have the authority to make decisions and to influence field implementation; and the team should have a protected and dedicated budget according to planned infection prevention and control activity and support by national authorities and leaders (for example, chief medical officer, minister of health).",
+    "source_snippet": "Appointed technical team of trained infection preventionists including medical and nursing professionals... The technical teams should have formal infection prevention and control training and allocated time according to tasks... authority to make decisions... protected and dedicated budget according to planned infection prevention and control activity",
+    "retrieval_seed_query": "antibiotic resistance prevention",
+    "primary_source_doc": "doc_002"
+  },
+  {
+    "question": "Which programmes should national infection prevention and control programmes establish linkages with?",
+    "answer": "The text states that national infection prevention and control programmes should establish and maintain linkages with several key programmes including: Water sanitation and hygiene, Environmental authorities, Prevention and containment of antimicrobial resistance (including antimicrobial stewardship programmes), Tuberculosis and human immunodeficiency virus programmes, National referral laboratories, Laboratory biosafety, Occupational health, Quality of health service delivery, Patient safety, Waste management, Immunization programmes, and Maternal and child health.",
+    "source_snippet": "The linkages between the national infection prevention and control programme and other related programmes are key and should be established and maintained including: Water sanitation and hygiene... Immunization programme Maternal and child health",
+    "retrieval_seed_query": "antibiotic resistance prevention",
+    "primary_source_doc": "doc_002"
+  },
+  {
+    "question": "What is required for the successful implementation of infection prevention and control guidelines?",
+    "answer": "According to the documents, successful implementation requires the education and training of relevant health care workers on the guideline recommendations and the monitoring of adherence with guideline recommendations. Additionally, early engagement and participation of stakeholders in the development and production of guidelines is emphasized to achieve consensus and support the implementation phases.",
+    "source_snippet": "The education and training of relevant health care workers on the guideline recommendations and the monitoring of adherence with guideline recommendations should be undertaken to achieve successful implementation",
+    "retrieval_seed_query": "antibiotic resistance prevention",
+    "primary_source_doc": "doc_002"
+  }
+]
