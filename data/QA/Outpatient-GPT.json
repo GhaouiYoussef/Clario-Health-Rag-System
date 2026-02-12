@@ -1,0 +1,127 @@
+[
+  {
+    "question": "What is the title of the CDC document that provides infection prevention minimum expectations for outpatient settings?",
+    "answer": "The title of the document is 'Guide to Infection Prevention for Outpatient Settings: Minimum Expectations for Safe Care.'",
+    "page": 1
+  },
+  {
+    "question": "Who developed the Guide to Infection Prevention for Outpatient Settings?",
+    "answer": "It was developed by the National Center for Emerging and Zoonotic Infectious Diseases, Division of Healthcare Quality Promotion.",
+    "page": 1
+  },
+  {
+    "question": "What is the primary basis of the recommendations in this guide?",
+    "answer": "The recommendations are based primarily upon elements of Standard Precautions from CDC and HICPAC guidelines.",
+    "page": 1
+  },
+  {
+    "question": "Define outpatient care as used in this guide.",
+    "answer": "Outpatient care is defined as care provided in facilities where patients do not remain overnight (e.g., clinics, physician offices, urgent care centers).",
+    "page": 2
+  },
+  {
+    "question": "What is a key difference between outpatient and inpatient settings noted in the guide?",
+    "answer": "Outpatient settings have traditionally lacked the infrastructure and resources to support infection prevention and surveillance activities compared with inpatient acute care settings.",
+    "page": 2
+  },
+  {
+    "question": "Who are considered healthcare personnel (HCP) in the outpatient setting?",
+    "answer": "HCP include all persons, paid and unpaid, working in outpatient settings who have potential for exposure to patients or infectious materials, including clerical and housekeeping staff.",
+    "page": 3
+  },
+  {
+    "question": "What must all healthcare settings be equipped to observe?",
+    "answer": "All healthcare settings must be equipped to observe Standard Precautions.",
+    "page": 2
+  },
+  {
+    "question": "What are the three objectives of this summary guide?",
+    "answer": "1) Provide basic infection prevention recommendations, 2) reaffirm Standard Precautions as foundational for all settings, and 3) provide links to full guidelines for detailed guidance.",
+    "page": 4
+  },
+  {
+    "question": "Name one administrative recommendation for infection prevention in outpatient settings.",
+    "answer": "One recommendation is to develop and maintain infection prevention and occupational health programs.",
+    "page": 6
+  },
+  {
+    "question": "Why is ongoing education and training of healthcare personnel important?",
+    "answer": "Ongoing education and competency-based training are critical to ensure infection prevention policies and procedures are understood and followed.",
+    "page": 6
+  },
+  {
+    "question": "How often should training be repeated for healthcare personnel?",
+    "answer": "Training should be provided upon orientation and repeated annually or whenever policies or procedures are updated.",
+    "page": 6
+  },
+  {
+    "question": "What is surveillance as defined in this guide?",
+    "answer": "Surveillance refers to ongoing systematic collection, analysis, interpretation, and dissemination of data on health-related events to improve health.",
+    "page": 7
+  },
+  {
+    "question": "What are Standard Precautions designed to do?",
+    "answer": "Standard Precautions are designed to protect HCP and prevent spread of infections among patients regardless of infection status.",
+    "page": 7
+  },
+  {
+    "question": "List two elements of Standard Precautions.",
+    "answer": "Two elements are: 1) hand hygiene and 2) use of personal protective equipment (PPE).",
+    "page": 7
+  },
+  {
+    "question": "When should hand hygiene be performed in outpatient settings?",
+    "answer": "Hand hygiene should be performed before patient contact and after contact with blood, body fluids, contaminated surfaces, or removal of PPE.",
+    "page": 8
+  },
+  {
+    "question": "What is the preferred method of hand hygiene in most clinical situations?",
+    "answer": "The preferred method is alcohol-based hand rub (ABHR) unless hands are visibly soiled, in which case soap and water should be used.",
+    "page": 8
+  },
+  {
+    "question": "Give an example of personal protective equipment (PPE).",
+    "answer": "Examples include gloves, gowns, face masks, respirators, goggles, and face shields.",
+    "page": 8
+  },
+  {
+    "question": "What is one key recommendation related to PPE usage?",
+    "answer": "Facilities should assure that sufficient and appropriate PPE is available and accessible to all healthcare personnel.",
+    "page": 9
+  },
+  {
+    "question": "What is one unsafe injection practice identified in the guide?",
+    "answer": "Using the same syringe to administer medication to more than one patient is an unsafe injection practice.",
+    "page": 9
+  },
+  {
+    "question": "What should be done with sharps after use?",
+    "answer": "Used sharps should be placed at the point of use in a closable, puncture-resistant, leak-proof container.",
+    "page": 10
+  },
+  {
+    "question": "What is the difference between cleaning and disinfection?",
+    "answer": "Cleaning removes visible soil using detergent and water, while disinfection eliminates virtually all recognized pathogenic microorganisms but not necessarily all microbial forms.",
+    "page": 10
+  },
+  {
+    "question": "Why must cleaning precede disinfection or sterilization?",
+    "answer": "Residual organic material reduces the effectiveness of disinfection and sterilization processes, so cleaning must come first.",
+    "page": 12
+  },
+  {
+    "question": "What are critical items regarding medical devices?",
+    "answer": "Critical items are devices that enter sterile tissue or the vascular system and must be sterile prior to use.",
+    "page": 11
+  },
+  {
+    "question": "What is the purpose of respiratory hygiene/cough etiquette?",
+    "answer": "It aims to contain respiratory secretions at the first point of encounter to prevent spread of respiratory infections.",
+    "page": 13
+  },
+  {
+    "question": "What should outpatient facilities develop to assess their infection prevention practices?",
+    "answer": "Facilities should use the Infection Prevention Checklist for Outpatient Settings to periodically assess practices.",
+    "page": 14
+  }
+]

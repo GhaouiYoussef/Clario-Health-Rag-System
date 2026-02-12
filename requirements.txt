@@ -1,10 +1,5 @@
-langchain
-langchain-community
-langchain-openai
-langchain-chroma
-langchain-google-genai
+
 chromadb
-openai
 streamlit
 pypdf
 tiktoken
@@ -12,3 +7,7 @@ python-dotenv
 pandas
 numpy
 tqdm
+PyMuPDF
+google-generativeai
+sentence-transformers==5.2.2
+

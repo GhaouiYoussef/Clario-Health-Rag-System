@@ -24,7 +24,7 @@ share/python-wheels/
 
 # Virtual Environments
 .env
-.venv
+.venv-rag
 env/
 venv/
 ENV/
@@ -38,6 +38,8 @@ venv.bak/
 .vscode/
 
 # Project specific
-data/chroma_db/
-data/documents/
+data/chroma*
+
 *.sqlite3
+data/extracted_images
+data/images

@@ -1,0 +1,152 @@
+[
+  {
+    "question": "If a conscious adult is choking and becomes unconscious during care, what is the immediate next step after lowering them to the ground?",
+    "answer": "The responder should immediately begin CPR, starting with chest compressions.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 64
+  },
+  {
+    "question": "According to the WHO toolkit, how should outliers in RHIS data be handled at the national level when preparing an annual report if immediate investigation is not possible?",
+    "answer": "At the national level, outliers should be corrected to obtain a 'clean' dataset for analysis, often by replacing the outlier with an expected value based on previous time periods, and documenting the adjustment.",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 19
+  },
+  {
+    "question": "For a person with diabetes following a 1,600 to 2,000 calorie meal plan, how many ounces of meat and meat substitutes are recommended daily?",
+    "answer": "The plan recommends 4 to 6 ounces of meat and meat substitutes per day.",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 16
+  },
+  {
+    "question": "What specific adjustment factor 'k' should be used when adjusting RHIS data for non-reporting facilities if it is assumed that non-reporting facilities provide services at half the rate of reporting facilities?",
+    "answer": "An adjustment factor of k = 0.5 should be used.",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 38
+  },
+  {
+    "question": "In the event of a chemical burn to the eye, how should the eye be flushed relative to the unaffected eye?",
+    [cite_start]"answer": "The head should be tilted so that the affected eye is lower than the unaffected eye while flushing with water to prevent the chemical from washing into the unaffected eye[cite: 253].",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 108
+  },
+  {
+    "question": "What is the 'FAST' mnemonic used for identifying stroke signals, and what does each letter represent?",
+    "answer": "FAST stands for Face (drooping), Arm (weakness), Speech (slurred/difficulty), and Time (critical nature/call 9-1-1).",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 73
+  },
+  {
+    "question": "According to the diabetes guide, what action should be taken if a person with type 1 diabetes has blood glucose above 240 mg/dL?",
+    [cite_start]"answer": "They should test their urine or blood for ketones[cite: 604].",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 49
+  },
+  {
+    "question": "When assessing data quality in RHIS, what is 'internal consistency' specifically checking for?",
+    "answer": "It checks for coherence between different data elements that have an expected relationship (e.g., DTP1 vs. DTP3 vaccine doses) and examines whether values follow expected patterns over time.",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 18
+  },
+  {
+    "question": "What is the recommended hand placement for giving CPR chest compressions to an infant?",
+    "answer": "Two or three fingers should be placed in the center of the chest, just below the nipple line.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 39
+  },
+  {
+    "question": "How does the WHO toolkit suggest calculating the target population for pregnancies if ANC1 coverage is known to be 95% from a survey?",
+    "answer": "The target population for pregnancies is calculated as the reported number of ANC1 visits divided by 0.95 (ANC1 reported / 0.95).",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 39
+  },
+  {
+    "question": "What steps should be taken if a person has an embedded object in a wound?",
+    "answer": "Do not remove the object. Place several dressings around it to keep it from moving, and bandage the dressings in place around the object.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 110
+  },
+  {
+    "question": "For a 2,000 to 2,400 calorie diabetes meal plan, how many servings of fruit are recommended daily?",
+    "answer": "4 servings of fruit are recommended per day.",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 17
+  },
+  {
+    "question": "What characterizes a 'sucking chest wound' and what is the primary signal?",
+    "answer": "A sucking chest wound is a penetrating injury where air passes in and out of the chest cavity; the primary signal is a distinct sucking sound heard with each breath.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 111
+  },
+  {
+    "question": "Why might census-based population projections be inaccurate for subnational RHIS indicators?",
+    "answer": "Projections rely on growth rates from the last census (often years ago) and may not account for recent migration, fertility changes, or population distribution shifts within districts.",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 22
+  },
+  {
+    "question": "How should a responder care for a person experiencing a seizure?",
+    "answer": "They should remove nearby objects that could cause injury, protect the person's airway, not restrain them or put anything in their mouth, and check for breathing once the seizure ends.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 71
+  },
+  {
+    "question": "What serving size of cooked pasta counts as one starch exchange in the diabetes meal plan?",
+    "answer": "1/3 cup of cooked pasta counts as one starch serving.",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 13
+  },
+  {
+    "question": "In the context of RHIS data analysis, what is 'triangulation'?",
+    "answer": "Triangulation is the synthesis of data from multiple sources (e.g., RHIS, surveys, surveillance sites) to reconcile indicator values and obtain a more valid estimate of health status or system performance.",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 38
+  },
+  {
+    "question": "What is the correct protocol for using an AED on a person with a medication patch on their chest?",
+    "answer": "The patch should be removed with a gloved hand before applying the AED pads, and the area should be wiped dry.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 49
+  },
+  {
+    "question": "When sick, how often should a person with diabetes check their blood glucose levels?",
+    "answer": "They should check their blood glucose level every 4 hours.",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 48
+  },
+  {
+    "question": "What distinguishes 'Dimension 3' (External consistency) from 'Dimension 4' (External comparison of population data) in RHIS data quality assessment?",
+    "answer": "Dimension 3 compares RHIS indicators with other data sources (like surveys), while Dimension 4 specifically compares the population data used as denominators for calculating rates and coverage.",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 20
+  },
+  {
+    "question": "What specific care should be given for a 'bluebottle jellyfish' (Portuguese man-of-war) sting compared to a regular jellyfish sting?",
+    "answer": "For a bluebottle jellyfish sting, flush with ocean water instead of vinegar (which triggers more venom release); regular jellyfish stings should be irrigated with vinegar.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 95
+  },
+  {
+    "question": "In the diabetes food guide, which food group provides the most carbohydrate, vitamins, minerals, and fiber but is low in fat?",
+    "answer": "The Starches, Fruits, and Vegetables groups fit this description, but Starches are specifically highlighted for providing complex carbohydrates, vitamins, minerals, and fiber.",
+    "pdf2": "Eating_Diabetes_508.pdf",
+    "page": 13
+  },
+  {
+    "question": "What is the significance of the '30-30 rule' regarding lightning safety?",
+    "answer": "It states that if the time between seeing lightning and hearing thunder is 30 seconds or less, the storm is within 6 miles and shelter should be sought immediately; one should wait 30 minutes after the last thunder before leaving shelter.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 96
+  },
+  {
+    "question": "According to the WHO toolkit, why is the Master Facility List (MFL) critical for RHIS data interpretation?",
+    "answer": "The MFL is the authoritative listing of all health facilities (public, private, NGO) and serves as the denominator for calculating reporting completeness and assessing facility representation in the RHIS.",
+    "pdf3": "general-principles-2021-01-21-final.pdf",
+    "page": 15
+  },
+  {
+    "question": "If an infant is choking and conscious, what cycle of actions should be performed?",
+    "answer": "The responder should give 5 back blows followed by 5 chest thrusts, continuing this cycle until the object is forced out, the infant can breathe/cough, or becomes unconscious.",
+    "pdf1": "American-Red-Cross-First-Aid-CPR-AED-Participants-Manual.pdf",
+    "page": 63
+  }
+]

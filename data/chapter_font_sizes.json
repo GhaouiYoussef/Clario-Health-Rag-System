@@ -1,0 +1,22 @@
+[
+  {
+    "doc_path": "doc_005",
+    "chapter_font_size": 21
+  },
+  {
+    "doc_path": "doc_004",
+    "chapter_font_size": 18
+  },
+  {
+    "doc_path": "doc_003",
+    "chapter_font_size": 32
+  },
+  {
+    "doc_path": "doc_002",
+    "chapter_font_size": 13
+  },
+  {
+    "doc_path": "doc_001",
+    "chapter_font_size": 29
+  }
+]
