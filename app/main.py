@@ -10,7 +10,6 @@ from src.rag_engine import HealthcareRAG
 from src.utils import load_documents
 from dotenv import load_dotenv
 
-MODEL_NAME = 'gemini-2.0-flash'
 # Load environment variables
 load_dotenv()
 
@@ -26,6 +25,13 @@ Always consult a qualified healthcare professional.
 # Sidebar for Model Selection
 with st.sidebar:
     st.header("Configuration")
+    
+    model_name = st.selectbox(
+        "Select Model:",
+        ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.5-flash-lite", "gemini-2.5-pro"],
+        index=0
+    )
+
     db_choice = st.radio(
         "Select Knowledge Base:",
         ("Custom Chunking (w/ Images)", "Normal Chunking")
@@ -33,7 +39,7 @@ with st.sidebar:
     
     if db_choice == "Custom Chunking (w/ Images)":
         # persist_dir = "./data/chroma_db_VI"
-        persist_dir = "./data/chroma_db_chap_based"
+        persist_dir = "./data/chroma_db_test_json"
 
 
     st.divider()
@@ -44,11 +50,15 @@ with st.sidebar:
     st.info("Ensure GOOGLE_API_KEY is set in .env")
 
 # Initialize RAG Agent based on selection
-if "rag_agent" not in st.session_state or st.session_state.get("current_db") != persist_dir:
+if ("rag_agent" not in st.session_state or 
+    st.session_state.get("current_db") != persist_dir or 
+    st.session_state.get("current_model") != model_name):
+    
     if os.path.exists(persist_dir):
-        st.session_state.rag_agent = HealthcareRAG(persist_directory=persist_dir, model_name=MODEL_NAME)
+        st.session_state.rag_agent = HealthcareRAG(persist_directory=persist_dir, model_name=model_name)
         st.session_state.current_db = persist_dir
-        st.success(f"Loaded Knowledge Base: {db_choice}")
+        st.session_state.current_model = model_name
+        st.success(f"Loaded {db_choice} with {model_name}")
     else:
         st.error(f"Database not found at {persist_dir}. Please run `python ingest_data.py` first.")
 

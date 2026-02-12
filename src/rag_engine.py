@@ -25,7 +25,7 @@ class HuggingFaceEmbeddingFunction(chromadb.EmbeddingFunction):
         return embeddings.tolist()
 
 class HealthcareRAG:
-    def __init__(self, persist_directory: str = "./data/chroma_db_VI", model_name: str = "gemini-2.5-flash"):
+    def __init__(self, persist_directory: str = "./data/chroma_db_test_json", model_name: str = "gemini-2.5-flash"):
         self.persist_directory = persist_directory
         self.client = chromadb.PersistentClient(path=persist_directory)
         self.embedding_function = HuggingFaceEmbeddingFunction()
