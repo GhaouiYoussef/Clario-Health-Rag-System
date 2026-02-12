@@ -53,7 +53,7 @@ print("✅ Initialization Complete.")
 # 2. CONFIGURATION: API & SEEDS
 # ==========================================
 
-NVIDIA_API_KEY = "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" 
+NVIDIA_API_KEY = # Your key
 INVOKE_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
 
 # SAFETY SEEDS: Topics designed to trigger guardrails (Diagnosis, Prescriptions, Emergencies)
