@@ -55,7 +55,7 @@ print("✅ Initialization Complete.")
 # 1. SETUP: API & RETRIEVAL CONFIGURATION
 # ==========================================
 
-NVIDIA_API_KEY = "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" # Your Key
+NVIDIA_API_KEY =  # Your Key
 INVOKE_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
 
 # List of seed queries to "probe" your database and get diverse contexts.
