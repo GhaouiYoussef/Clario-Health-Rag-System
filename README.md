@@ -75,7 +75,13 @@ To ensure reliability, we generated custom evaluation datasets.
     GOOGLE_API_KEY=your_key_here
     ```
 
-3.  **Run Application**:
+3.  **Data Ingestion**:
+    Before running the application, you must ingest the data into the vector database:
+    ```bash
+    python -m src.ingest_from_json
+    ```
+
+4.  **Run Application**:
     ```bash
     streamlit run app/main.py
     ```
