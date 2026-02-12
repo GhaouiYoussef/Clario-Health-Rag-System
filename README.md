@@ -1,45 +1,71 @@
-# Healthcare RAG Agent
+# Healthcare RAG System
 
-A RAG-based Q&A agent for general healthcare questions, grounded in curated documents. This project includes a Streamlit UI, evaluation suite, and strict safety guardrails.
+A sophisticated Retrieval-Augmented Generation (RAG) system designed for healthcare queries, featuring a custom-built data pipeline, advanced hybrid retrieval with reranking, and a transparent user interface.
 
-## Features
+## 🏗️ Architecture & Data Pipeline
 
-- **Healthcare Q&A**: Answers general health questions based *only* on provided documents.
-- **Safety First**: Clear disclaimers, triage suggestions, and refusal to partial diagnosis.
-- **Citations**: All answers include references to specific source documents and chunks.
-- **Evaluation**: Tools to benchmark accuracy, latency, and cost.
+This system moves beyond standard RAG implementations by focusing heavily on data quality and contextual integrity.
 
-## Setup
+### 1. Data Processing & Curation
+*   **Manual Curation**: Raw documents were carefully curated to remove noisy elements such as headers, footers, bibliographies, and extensive appendices that could dilute retrieval quality.
+*   **Structure-Aware Extraction**: We utilized a custom structuring approach to extract content while preserving the hierarchy of the documents.
+*   **Contextual Chapter-Based Chunking**: 
+    *   Instead of always splitting at arbitrary character limits, we implemented **"Smart Chunking"**.
+    *   This logic respects sentence boundaries and paragraph breaks (checking for points and newlines) to ensure chunks are semantically complete and never cut halfway through a thought.
+    *   **Context Preservation**: Meaningful chapter titles are prepended to every chunk within that section. This ensures that even small text fragments retain their broader context during retrieval.
+
+### 2. The RAG Engine
+*   **Guardrail & Query Router**: 
+    *   The entry point is an intelligent Router Agent.
+    *   **Safety Check**: Detects unsafe or medical-emergency queries (e.g., "I'm having a heart attack") and rejects them immediately.
+    *   **Query Refinement**: Rewrites user queries to be more search-friendly (e.g., removing conversational filler) to improve vector matching.
+    *   *Note: This step introduces a slight latency (~3 seconds) but significantly improves safety and retrieval accuracy.*
+*   **Hybrid Retrieval**: Combines sparse keyword search (BM25) with dense vector search (ChromaDB) to capture both exact matches and semantic meaning.
+*   **Reranking**: A Cross-Encoder model re-scores the retrieved candidates to promote the most relevant documents to the top before generation.
+*   **Generation**: Uses **Google Gemini 2.5 (Flash/Pro)** to synthesize answers based *strictly* on the retrieved context.
+
+### 3. User Interface (Streamlit)
+*   **Observability**: The UI provides detailed insights into the "Black Box" of RAG. Users can see real-time status updates for every step (Guardrails -> Search -> Rerank -> Generate).
+*   **Transparency**: Users can view the exact chunks used to generate the answer, including the **Chunk ID**, **Relevance Score**, and the **Full Content** of the chunk via expandable sections.
+*   **Customization**: The sidebar allows users to swap between model variants (Flash vs. Pro) and tune retrieval parameters.
+
+---
+
+## 📊 Datasets & Evaluation
+
+To ensure reliability, we generated custom evaluation datasets.
+
+### Dataset Creation
+*   **Synthetic Generation**: Leveraging the **NVIDIA API (Llama 3 / Kim)**, we created synthetic Q&A pairs.
+*   **Methodology**: The generator randomly selected healthcare topics and retrieved documents to formulate ground-truth questions and answers.
+*   **Datasets**:
+    1.  **Safety/Adversarial Dataset**: Used to test the Router's ability to refuse out-of-scope or dangerous queries.
+    2.  **Golden Dataset**: A high-quality set of questions used to benchmark the model's accuracy, faithfulness, and latency.
+
+### Performance & Resource Report
+*   **Baseline Evaluation**: Performance metrics were initially established *before* the introduction of the Router Agent to set a baseline for raw retrieval speed.
+*   **Resource Usage**: The system is optimized to run efficiently on standard hardware.
+    *   **RAM**: ~2 GB memory footprint.
+    *   **CPU**: Moderate usage (CPU-bound for local embeddings/reranking) for roughly one hour of continuous operation during batch processing.
+*   **Cost Efficiency**: The implementation using Gemini Flash provides an extremely low cost per 1,000 tokens compared to larger proprietary models.
+*   **Latency Trade-off**: While the Router Agent adds ~3 seconds to the response time, it is a necessary trade-off for the implemented safety guardrails and query optimization.
+
+## 🚀 Setup & Usage
 
 1.  **Environment**:
     ```bash
     python -m venv venv
-    source venv/bin/activate  # Windows: venv\Scripts\activate
+    # Windows: venv\Scripts\activate | Mac/Linux: source venv/bin/activate
     pip install -r requirements.txt
     ```
 
 2.  **Configuration**:
-    Copy `.env.example` to `.env` and add your API keys (e.g., OPENAI_API_KEY).
+    Create a `.env` file with your `GOOGLE_API_KEY`.
 
-3.  **Data**:
-    Place your PDF documents in `data/documents/`.
-
-4.  **Run UI**:
+3.  **Run Application**:
     ```bash
     streamlit run app/main.py
     ```
 
-5.  **Run Evaluation**:
-    ```bash
-    python evaluation/benchmark.py
-    ```
-
-## Architecture
-
-- **Retrieval**: Uses ChromaDB with OpenAI Embeddings. Hybrid search or reranking can be enabled.
-- **Generation**: OpenAI GPT-4o (or similar) with strict system prompts for safety.
-- **UI**: Streamlit for easy interaction.
-
 ## Disclaimer
-
-**This tool does not provide medical advice.** It is for informational purposes only. Always consult a qualified healthcare professional for medical concerns.
+**This tool does not provide medical advice.** It is a demonstration of RAG technology for informational lookup only. Always consult a qualified healthcare professional.

@@ -43,3 +43,7 @@ data/chroma*
 *.sqlite3
 data/extracted_images
 data/images
+EVALUATION_REPORT*
+*.pptx
+data/test*
+presentation_outline.md
