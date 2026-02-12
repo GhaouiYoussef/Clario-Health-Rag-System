@@ -157,7 +157,7 @@ class HealthcareRAG:
         
         if not candidate_ids: return []
         
-        # --- Step 2: Fetch Data ---
+        # --- Step 2: Fetch Data & Apply Diversity Filter (Pre-Rerank) ---
         docs_data = self.collection.get(ids=candidate_ids, include=['documents', 'metadatas'])
         
         data_map = {}
@@ -170,13 +170,31 @@ class HealthcareRAG:
         rerank_pairs = []
         final_items = []
         
+        # Diversity limits based on candidate pool size to ensure diversity before reranking
+        limit_per_title = max(1, int(k_candidates * diversity_ratio))
+        limit_per_doc = max(1, int(k_candidates * doc_diversity_ratio))
+        
+        title_counts = {}
+        doc_counts = {}
+        
         for doc_id in candidate_ids:
             if doc_id in data_map:
                 item = data_map[doc_id]
-                rerank_pairs.append([query, item['content']])
-                item['id'] = doc_id
-                final_items.append(item)
                 
+                # Check diversity constraints
+                t = item['metadata'].get('title', '')
+                d = item['metadata'].get('doc_name', item['metadata'].get('source', ''))
+                
+                if (title_counts.get(t, 0) < limit_per_title and 
+                    doc_counts.get(d, 0) < limit_per_doc):
+                    
+                    item['id'] = doc_id
+                    rerank_pairs.append([query, item['content']])
+                    final_items.append(item)
+                    
+                    title_counts[t] = title_counts.get(t, 0) + 1
+                    doc_counts[d] = doc_counts.get(d, 0) + 1
+
         # --- Step 3: Reranking ---
         if final_items:
             rerank_scores = self.reranker.predict(rerank_pairs)
@@ -205,28 +223,8 @@ class HealthcareRAG:
                 
             final_items.sort(key=lambda x: x['final_score'], reverse=True)
             
-        # --- Step 4: Diversity Filtering ---
-        limit_per_title = max(1, int(n_results * diversity_ratio))
-        limit_per_doc = max(1, int(n_results * doc_diversity_ratio))
-        selection = []
-        title_counts = {}
-        doc_counts = {}
-        
-        for item in final_items:
-            t = item.get('title_txt', '')
-            # Use 'doc_name' for better document-level diversity if available
-            d = item.get('metadata', {}).get('doc_name', item.get('metadata', {}).get('source', ''))
-            
-            if (title_counts.get(t, 0) < limit_per_title and 
-                doc_counts.get(d, 0) < limit_per_doc):
-                selection.append(item)
-                title_counts[t] = title_counts.get(t, 0) + 1
-                doc_counts[d] = doc_counts.get(d, 0) + 1
-                
-            if len(selection) >= n_results:
-                break
-                
-        return selection
+        # Return top n_results from the diverse, reranked set
+        return final_items[:n_results]
 
     def split_text(self, text: str, chunk_size: int = 1000, overlap: int = 200) -> List[str]:
         """Simple recursive-like splitting strategy."""
@@ -283,13 +281,33 @@ class HealthcareRAG:
         else:
             print("No text to ingest.")
 
-    def get_answer(self, query: str, n_results: int = 5, k_candidates: int = 20, doc_diversity: float = 0.5) -> Dict[str, Any]:
-        """Retrieves context and generates answer using Gemini directly."""
+    def get_chunk(self, chunk_id: str) -> Dict[str, Any]:
+        """Retrieves a single chunk by ID."""
+        try:
+            result = self.collection.get(ids=[chunk_id], include=["documents", "metadatas"])
+            if result['ids']:
+                return {
+                    "id": result['ids'][0],
+                    "content": result['documents'][0],
+                    "metadata": result['metadatas'][0]
+                }
+        except Exception as e:
+            print(f"Error fetching chunk {chunk_id}: {e}")
+        return None
+
+    def get_answer(self, query: str, n_results: int = 5, k_candidates: int = 20, doc_diversity: float = 0.5, status_callback=None) -> Dict[str, Any]:
+        """
+        Retrieves context and generates answer using Gemini directly.
+        Supports status_callback(step_name, message) for UI updates.
+        """
         
         # 0. Router / Guardrail Check
+        if status_callback: status_callback("guardrails", "Checking query safety and intent...")
+        
         router_decision = self.query_router(query)
         
         if router_decision.get('action') == 'reject':
+            if status_callback: status_callback("rejected", "Query rejected by guardrails.")
             return {
                 "result": f"⚠️ Query Refused: {router_decision.get('reason', 'Safety violation')}. Please consult a professional.",
                 "source_documents": [],
@@ -300,8 +318,16 @@ class HealthcareRAG:
         print(f"Router Refined Query: '{query}' -> '{search_query}'")
         
         # 1. Retrieve using Hybrid Reranking (using REFINED query)
+        if status_callback: status_callback("retrieval", f"Searching usage hybrid retrieval for: '{search_query}'...")
+        
+        # Adjust diversity settings to ensure we get results
+        # If strict limits yield too few results, we can fallback or relax them? 
+        # For now, let's keep logic but ensure caller handles 'n_results'
+        
         hits = self.hybrid_retrieval(search_query, n_results=n_results, k_candidates=k_candidates, doc_diversity_ratio=doc_diversity)
         
+        if status_callback: status_callback("reranking", f"Reranking and filtering {len(hits)} candidates...")
+
         context_parts = []
         source_docs = [] # For return format compatibility
         
@@ -309,6 +335,7 @@ class HealthcareRAG:
             doc_text = hit['content']
             meta = hit['metadata']
             score = hit.get('final_score', 0.0)
+            chunk_id = hit.get('id', 'unknown')
             
             # Use preferred keys, fallback to legacy
             source = meta.get('doc_name', meta.get('source', 'Unknown'))
@@ -319,20 +346,30 @@ class HealthcareRAG:
             
             source_info = f"Source: {source}, Page: {page}, Title: {title}"
             context_parts.append(f"[{source_info}]\n{doc_text}")
-            source_docs.append({"page_content": doc_text, "metadata": meta})
+            
+            # Ensure ID is included in source docs for UI
+            doc_entry = {
+                "page_content": doc_text, 
+                "metadata": meta,
+                "id": chunk_id,
+                "score": score
+            }
+            source_docs.append(doc_entry)
 
         context_str = "\n\n".join(context_parts)
 
         # 2. Generate
-        prompt = f"""Use the following pieces of context to answer the question at the end. 
-        If you don't know the answer based on the context, just say that you don't know, don't try to make up an answer.
+        if status_callback: status_callback("generation", "Generating response with Gemini...")
         
-        IMPORTANT SAFETY GUIDELINES:
-        - You are a helpful healthcare assistant, but you are NOT a doctor.
-        - Do not provide medical diagnoses or prescribe treatments.
-        - If the user describes severe symptoms, recommend seeking urgent professional care.
-        - Always cite your sources from the context provided using the format [Source: ..., Page: ...].
-        
+        prompt = f"""You are an expert healthcare assistant. Answering the user's question using ONLY the provided context.
+
+        Guidelines:
+        1. **Accuracy**: Use only the information from the context. If the answer isn't there, state "I cannot find the answer in the provided documents."
+        2. **Safety**: Do NOT provide medical diagnoses. If symptoms are severe, advise seeking professional help.
+        3. **Clarity**: Structure your answer with clear headings or bullet points if appropriate.
+        4. **Citations**: Cite sources inline using [Source: doc_name, Page: X]. Consolidate citations where possible (e.g., [Source: doc_002, Page: 5-11]).
+        5. **Tone**: Professional, objective, and empathetic.
+
         Context:
         {context_str}
         
@@ -355,6 +392,8 @@ class HealthcareRAG:
         except Exception as e:
             answer = f"Error generating answer: {e}"
             token_usage = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
+        
+        if status_callback: status_callback("complete", "Response generated.")
 
         return {
             "result": answer,

@@ -84,84 +84,138 @@ if prompt := st.chat_input("Ask a healthcare question..."):
 
     # Generate response
     with st.chat_message("assistant"):
-        with st.spinner("Consulting knowledge base..."):
-            try:
-                # Use user-configured parameters from sidebar
-                response = st.session_state.rag_agent.get_answer(
-                    prompt, 
-                    n_results=n_results, 
-                    k_candidates=k_candidates,
-                    doc_diversity=doc_div
-                )
-                answer_text = response['result']
-                source_docs = response['source_documents']
+        message_placeholder = st.empty()
+        status_text = st.status("Thinking...", expanded=True)
+        
+        def update_status(step, msg):
+            status_text.write(f"**{step.title()}:** {msg}")
+            if step == 'complete':
+                status_text.update(label="Response Ready", state="complete", expanded=False)
+
+        try:
+            # Use user-configured parameters from sidebar
+            response = st.session_state.rag_agent.get_answer(
+                prompt,
+                n_results=n_results,
+                k_candidates=k_candidates,
+                doc_diversity=doc_div,
+                status_callback=update_status
+            )
+            answer_text = response['result']
+            source_docs = response['source_documents']
+            
+            # Format text response
+            full_response = f"{answer_text}\n\n**Sources:**"
+            seen_sources = set()
+            images_to_display = []
+            
+            for doc in source_docs:
+                # Handle both dict and object access safely
+                if isinstance(doc, dict):
+                    meta = doc.get("metadata", {})
+                    # Ensure chunk id is available for link
+                    chunk_id = doc.get("id", "unknown")
+                else:
+                    meta = doc.metadata
+                    # If using old object, ID might not be easily accessible unless added to object
+                    chunk_id = getattr(doc, "id", "unknown")
+
+                # Improved source mapping logic
+                raw_source = meta.get('doc_name', meta.get('source', 'Unknown'))
+                source_name = os.path.basename(raw_source)
+                page = meta.get('page_range', meta.get('page', 'N/A'))
+                title = meta.get('title', '')
                 
-                # Format text response
-                full_response = f"{answer_text}\n\n**Sources:**"
-                seen_sources = set()
-                images_to_display = []
+                source_key = f"{source_name} (Page {page})"
+                if title:
+                    source_key = f"{title} - {source_key}"
                 
-                for doc in source_docs:
-                    # Handle both dict and object access
+                # Check for duplicate
+                if chunk_id not in seen_sources:
+                    full_response += f"\n- {source_key} `[{chunk_id[:8]}...]`"
+                    seen_sources.add(chunk_id)
+
+            message_placeholder.markdown(full_response)
+
+            with st.expander("Show Retrieved Context Details"):
+                for idx, doc in enumerate(source_docs):
+                     # Handle both dict and object access
                     if isinstance(doc, dict):
                         meta = doc.get("metadata", {})
+                        content = doc.get("page_content", "")
+                        chunk_id = doc.get("id", "Unknown ID")
+                        score = doc.get("score", 0.0)
                     else:
                         meta = doc.metadata
-
-                    # Improved source mapping logic
+                        content = doc.page_content
+                        chunk_id = getattr(doc, "id", "Unknown ID")
+                        score = getattr(doc, "score", 0.0)
+                    
                     raw_source = meta.get('doc_name', meta.get('source', 'Unknown'))
                     source_name = os.path.basename(raw_source)
                     page = meta.get('page_range', meta.get('page', 'N/A'))
-                    title = meta.get('title', '')
+                    title = meta.get('title', 'Unknown Section')
                     
-                    source_key = f"{source_name} (Page {page})"
-                    if title:
-                        source_key = f"{title} - {source_key}"
+                    st.markdown(f"**{idx+1}. {title}** `(Score: {score:.4f})`")
+                    st.caption(f"File: {source_name} | Page: {page} | Chunk ID: `{chunk_id}`")
                     
-                    if source_key not in seen_sources:
-                        full_response += f"\n- {source_key}"
-                        seen_sources.add(source_key)
+                    # Collapsible full content
+                    with st.expander("View Full Chunk Content"):
+                        st.text(content)
+                    st.divider()
 
-                st.markdown(full_response)
+            # Display Images
+            if images_to_display:
+                st.markdown("### Relevant Images:")
+                cols = st.columns(min(len(images_to_display), 3)) 
+                for idx, img_path in enumerate(images_to_display):
+                    if os.path.exists(img_path):
+                        # Cycle through columns
+                        with cols[idx % 3]:
+                            st.image(img_path, caption=f"From {os.path.basename(img_path)}", use_container_width=True)
 
-                with st.expander("Show Retrieved Context Details"):
-                    for idx, doc in enumerate(source_docs):
-                         # Handle both dict and object access
-                        if isinstance(doc, dict):
-                            meta = doc.get("metadata", {})
-                            content = doc.get("page_content", "")
-                        else:
-                            meta = doc.metadata
-                            content = doc.page_content
-                        
-                        raw_source = meta.get('doc_name', meta.get('source', 'Unknown'))
-                        source_name = os.path.basename(raw_source)
-                        page = meta.get('page_range', meta.get('page', 'N/A'))
-                        title = meta.get('title', 'Unknown Section')
-                        
-                        st.markdown(f"**{idx+1}. {title}**")
-                        st.caption(f"File: {source_name} | Page: {page}")
-                        st.text(content[:300] + "..." if len(content) > 300 else content)
-                        st.divider()
-
-                # Display Images
-                if images_to_display:
-                    st.markdown("### Relevant Images:")
-                    cols = st.columns(min(len(images_to_display), 3)) 
-                    for idx, img_path in enumerate(images_to_display):
-                        if os.path.exists(img_path):
-                            # Cycle through columns
-                            with cols[idx % 3]:
-                                st.image(img_path, caption=f"From {os.path.basename(img_path)}", use_container_width=True)
-
-                # Save to history
-                message_data = {"role": "assistant", "content": full_response}
-                if images_to_display:
-                    message_data["images"] = images_to_display
-                
-                st.session_state.messages.append(message_data)
+            # Save to history
+            message_data = {"role": "assistant", "content": full_response}
+            if images_to_display:
+                message_data["images"] = images_to_display
             
-            except Exception as e:
-                st.error(f"An error occurred: {e}")
+            st.session_state.messages.append(message_data)
+        
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
+                
+            with st.expander(f"Source {idx+1}: {title} ({source_name})"):
+                st.caption(f"**Chunk ID:** `{chunk_id}` | **Page:** {page}")
+                st.markdown(f"**Context Snippet:**")
+                st.info(content) # Show full chunk content
+                
+                # Image Discovery Logic (Simple heuristic based on page number)
+                # If we have page info and doc name, try to find image
+                # doc_001.pdf -> images/doc_001/page_X_img_Y.png
+                if page != 'N/A' and page != 'unknown':
+                    # Try to find images for this page
+                    # page might be "5" or "5-6"
+                    first_page = page.split('-')[0] if '-' in str(page) else str(page)
+                    clean_doc_name = source_name.replace('.pdf', '')
+                    img_search_dir = os.path.join("data", "images", clean_doc_name)
+                    
+                    if os.path.exists(img_search_dir):
+                        found_imgs = [
+                            os.path.join(img_search_dir, f) 
+                            for f in os.listdir(img_search_dir) 
+                            if f"page_{first_page}_" in f
+                        ]
+                        if found_imgs:
+                            st.markdown("**Related Images:**")
+                            st.image(found_imgs, width=300)
+                            images_to_display.extend(found_imgs)
+
+            # Save to history
+            message_data = {"role": "assistant", "content": answer_text, "references": source_docs, "images": images_to_display}
+            st.session_state.messages.append(message_data)
+        
+        except Exception as e:
+            status_placeholder.update(label="Error", state="error")
+            st.error(f"An error occurred: {e}")
 
 
