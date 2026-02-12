@@ -15,6 +15,9 @@ load_dotenv()
 
 st.set_page_config(page_title="Healthcare RAG Agent", page_icon="🏥", layout="wide")
 
+# Check for API Key
+google_api_key = os.getenv("GOOGLE_API_KEY")
+
 st.title("🏥 Healthcare RAG Q&A Agent")
 st.markdown("""
 **Disclaimer:** This tool is for informational purposes only. 
@@ -26,9 +29,25 @@ Always consult a qualified healthcare professional.
 with st.sidebar:
     st.header("Configuration")
     
+    # API Key Configuration
+    if not google_api_key:
+        st.error("⚠️ GOOGLE_API_KEY not found.")
+        api_key_input = st.text_input("Enter Google API Key:", type="password")
+        if api_key_input:
+            # Set in environment for current session
+            os.environ["GOOGLE_API_KEY"] = api_key_input
+            google_api_key = api_key_input
+            
+            # Create/Update .env file
+            env_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')), '.env')
+            with open(env_path, "a") as f:
+                f.write(f"\nGOOGLE_API_KEY={api_key_input}\n")
+            st.success("API Key saved to .env!")
+            st.rerun()
+
     model_name = st.selectbox(
         "Select Model:",
-        ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.5-flash-lite", "gemini-2.5-pro"],
+        ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.5-pro"],
         index=0
     )
 
@@ -38,8 +57,9 @@ with st.sidebar:
     )
     
     if db_choice == "Custom Chunking (w/ Images)":
-        # persist_dir = "./data/chroma_db_VI"
         persist_dir = "./data/chroma_db_test_json"
+    else:
+        persist_dir = "./data/chroma_db_test_json" # Default for now
 
 
     st.divider()
@@ -47,20 +67,32 @@ with st.sidebar:
     n_results = st.slider("Num Results (Final)", 1, 10, 5)
     k_candidates = st.slider("Num Candidates (Initial)", 10, 50, 40)
     doc_div = st.slider("Document Diversity", 0.1, 1.0, 0.5)
-    st.info("Ensure GOOGLE_API_KEY is set in .env")
+    
+    if google_api_key:
+        st.success("API Key is configured.")
+    else:
+        st.info("Ensure GOOGLE_API_KEY is set in .env or provide it above.")
 
 # Initialize RAG Agent based on selection
 if ("rag_agent" not in st.session_state or 
     st.session_state.get("current_db") != persist_dir or 
-    st.session_state.get("current_model") != model_name):
+    st.session_state.get("current_model") != model_name or
+    st.session_state.get("current_api_key") != google_api_key):
     
-    if os.path.exists(persist_dir):
-        st.session_state.rag_agent = HealthcareRAG(persist_directory=persist_dir, model_name=model_name)
+    if os.path.exists(persist_dir) and google_api_key:
+        st.session_state.rag_agent = HealthcareRAG(
+            persist_directory=persist_dir, 
+            model_name=model_name,
+            api_key=google_api_key
+        )
         st.session_state.current_db = persist_dir
         st.session_state.current_model = model_name
+        st.session_state.current_api_key = google_api_key
         st.success(f"Loaded {db_choice} with {model_name}")
+    elif not google_api_key:
+        st.warning("Please provide a Google API Key in the sidebar to initialize the agent.")
     else:
-        st.error(f"Database not found at {persist_dir}. Please run `python ingest_data.py` first.")
+        st.error(f"Database not found at {persist_dir}. Please run `python ingest_from_json.py` first.")
 
 # Chat Interface
 if "messages" not in st.session_state:

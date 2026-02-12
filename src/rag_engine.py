@@ -13,8 +13,6 @@ import numpy as np
 # .env is in a parent directory
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
-CLIENT = genai.Client(api_key=os.environ.get("GOOGLE_API_KEY"))
-
 class HuggingFaceEmbeddingFunction(chromadb.EmbeddingFunction):
     def __init__(self, model_name="all-MiniLM-L6-v2", device="cpu"):
         self.model = SentenceTransformer(model_name, device=device)
@@ -25,7 +23,7 @@ class HuggingFaceEmbeddingFunction(chromadb.EmbeddingFunction):
         return embeddings.tolist()
 
 class HealthcareRAG:
-    def __init__(self, persist_directory: str = "./data/chroma_db_test_json", model_name: str = "gemini-2.5-flash"):
+    def __init__(self, persist_directory: str = "./data/chroma_db_test_json", model_name: str = "gemini-2.5-flash", api_key: Optional[str] = None):
         self.persist_directory = persist_directory
         self.client = chromadb.PersistentClient(path=persist_directory)
         self.embedding_function = HuggingFaceEmbeddingFunction()
@@ -33,7 +31,13 @@ class HealthcareRAG:
             name="chapter_knowledge_base", # Matched to custom_chunking.ipynb definition
             embedding_function=self.embedding_function
         )
-        self.client_gemini = CLIENT
+        
+        # Initialize Gemini Client
+        key = api_key or os.environ.get("GOOGLE_API_KEY")
+        if not key:
+            raise ValueError("GOOGLE_API_KEY not found in environment or provided to HealthcareRAG.")
+        
+        self.client_gemini = genai.Client(api_key=key)
         self.model_name = model_name
 
         # Initialize Hybrid Retrieval Components

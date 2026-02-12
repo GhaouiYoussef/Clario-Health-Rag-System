@@ -52,15 +52,28 @@ To ensure reliability, we generated custom evaluation datasets.
 
 ## 🚀 Setup & Usage
 
-1.  **Environment**:
+1.  **Environment Setup (using `uv`)**:
+    We use `uv` for fast, reproducible dependency management and environment setup.
     ```bash
-    python -m venv venv
-    # Windows: venv\Scripts\activate | Mac/Linux: source venv/bin/activate
-    pip install -r requirements.txt
+    # Install uv if you haven't already
+    pip install uv
+
+    # Create a virtual environment and install dependencies
+    uv venv venv-test --python 3.11.4
+    
+    # Activate the environment
+    # Windows: venv-test\Scripts\activate
+    # Mac/Linux: source venv-test/bin/activate
+
+    # Install dependencies from locked requirements
+    uv pip install -r requirements.txt
     ```
 
 2.  **Configuration**:
-    Create a `.env` file with your `GOOGLE_API_KEY`.
+    If no `.env` file exists, the application will prompt you to enter your `GOOGLE_API_KEY` directly in the sidebar on the first run and save it for you. Alternatively, you can create a `.env` file manually:
+    ```bash
+    GOOGLE_API_KEY=your_key_here
+    ```
 
 3.  **Run Application**:
     ```bash
