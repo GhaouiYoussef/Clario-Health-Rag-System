@@ -1,0 +1,474 @@
+{
+    "timestamp": "2026-02-12T01:53:09.555373",
+    "total_samples": 21,
+    "average_latency_seconds": 4.80589543070112,
+    "total_cost_usd": 0.0019120000000000005,
+    "average_cost_per_query_usd": 9.104761904761907e-05,
+    "metrics_summary": {
+        "average_rouge1_f1": 0.5364592683875338,
+        "average_rougeL_f1": 0.4484434142916383,
+        "average_bleu_score": 0.21601433401647535
+    },
+    "per_sample_results": [
+        {
+            "question": "What is the recommended depth and rate for chest compressions when performing CPR on a child?",
+            "reference_answer": "According to the text, when performing CPR on a child, rescuers should push hard and fast to a depth of about 2 inches and at a rate of at least 100 compressions per minute.",
+            "generated_answer": "The recommended depth for chest compressions when performing CPR on a child is about 2 inches, and the rate should be at least 100 compressions per minute [Source: doc_001, Page: 29-45].",
+            "metrics": {
+                "rouge1_f1": 0.5970149253731343,
+                "rouge2_f1": 0.4,
+                "rougeL_f1": 0.5373134328358209,
+                "bleu_score": 0.23971070292814037
+            },
+            "latency_seconds": 4.975905418395996,
+            "token_usage": {
+                "prompt_tokens": 374,
+                "completion_tokens": 52,
+                "total_tokens": 426
+            },
+            "estimated_cost_usd": 5.8200000000000005e-05,
+            "source_documents": [
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What actions should a rescuer take after an AED delivers a shock or if no shock is advised?",
+            "reference_answer": "After delivering the shock, or if no shock is advised, the rescuer should perform about 2 minutes (or 5 cycles) of CPR and continue to follow the prompts of the AED.",
+            "generated_answer": "After an AED delivers a shock or if no shock is advised, the rescuer should perform about 2 minutes (or 5 cycles) of CPR and continue to follow the prompts of the AED [Source: doc_001, Page: 45-55]. If at any time an obvious sign of life, such as breathing, is noticed, the rescuer should stop CPR and monitor breathing and for any changes in the child's or infant's condition [Source: doc_001, Page: 45-55].",
+            "metrics": {
+                "rouge1_f1": 0.5636363636363637,
+                "rouge2_f1": 0.5,
+                "rougeL_f1": 0.5454545454545455,
+                "bleu_score": 0.3487436776951212
+            },
+            "latency_seconds": 4.112654685974121,
+            "token_usage": {
+                "prompt_tokens": 394,
+                "completion_tokens": 115,
+                "total_tokens": 509
+            },
+            "estimated_cost_usd": 8.540000000000002e-05,
+            "source_documents": [
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What should a rescuer do if a conscious choking adult becomes unconscious?",
+            "reference_answer": "If a conscious choking adult becomes unconscious, the rescuer should call 9-1-1 if not already done, carefully lower the person to the ground, and begin CPR starting with compressions.",
+            "generated_answer": "If a conscious choking adult becomes unconscious, a rescuer should call 9-1-1 (if not already done), carefully lower the person to the ground, and begin CPR, starting with compressions. [Source: doc_001, Page: 55-68]",
+            "metrics": {
+                "rouge1_f1": 0.8823529411764706,
+                "rouge2_f1": 0.8484848484848485,
+                "rougeL_f1": 0.8823529411764706,
+                "bleu_score": 0.5383649411413276
+            },
+            "latency_seconds": 3.9571738243103027,
+            "token_usage": {
+                "prompt_tokens": 427,
+                "completion_tokens": 60,
+                "total_tokens": 487
+            },
+            "estimated_cost_usd": 6.670000000000001e-05,
+            "source_documents": [
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What forms of sugar can be administered to a conscious diabetic person who is able to swallow during a diabetic emergency?",
+            "reference_answer": "According to the text, if the diabetic person is conscious and able to swallow, you should give sugar in the form of several glucose tablets or glucose paste, a 12-ounce serving of fruit juice, milk, nondiet soft drink, or table sugar dissolved in a glass of water.",
+            "generated_answer": "If a diabetic person is conscious and able to swallow during a diabetic emergency, sugar can be given to them, preferably in the form of glucose tablets or in liquid form [Source: doc_001, Page: 68-81].",
+            "metrics": {
+                "rouge1_f1": 0.4941176470588235,
+                "rouge2_f1": 0.2891566265060241,
+                "rougeL_f1": 0.42352941176470593,
+                "bleu_score": 0.20269726287803977
+            },
+            "latency_seconds": 4.511666536331177,
+            "token_usage": {
+                "prompt_tokens": 535,
+                "completion_tokens": 51,
+                "total_tokens": 586
+            },
+            "estimated_cost_usd": 7.390000000000001e-05,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What are the signals that indicate a person may be going into shock?",
+            "reference_answer": "The text states that signals of shock include restlessness or irritability, altered level of consciousness, nausea or vomiting, pale, ashen or grayish cool and moist skin, rapid breathing and pulse, and excessive thirst.",
+            "generated_answer": "The signals that indicate a person may be going into shock include:\n* Rapid breathing [Source: doc_001, Page: 68-81]\n* Changes in skin appearance [Source: doc_001, Page: 68-81]\n* Cool, pale or ashen (grayish) skin [Source: doc_001, Page: 68-81]\n* Sweating [Source: doc_001, Page: 68-81]\n* Persistent abdominal pain or pressure [Source: doc_001, Page: 68-81]\n* Nausea or vomiting [Source: doc_001, Page: 68-81]\n* Diarrhea [Source: doc_001, Page: 68-81]\n* Seizures [Source: doc_001, Page: 68-81]",
+            "metrics": {
+                "rouge1_f1": 0.2931034482758621,
+                "rouge2_f1": 0.07017543859649124,
+                "rougeL_f1": 0.13793103448275862,
+                "bleu_score": 0.00419105675868449
+            },
+            "latency_seconds": 4.390849828720093,
+            "token_usage": {
+                "prompt_tokens": 347,
+                "completion_tokens": 207,
+                "total_tokens": 554
+            },
+            "estimated_cost_usd": 0.00011750000000000001,
+            "source_documents": [
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What does the RICE mnemonic stand for when providing care for injuries to muscles, bones, and joints?",
+            "reference_answer": "The document explains that RICE stands for Rest (do not move or straighten the injured area), Immobilize (stabilize the injured area in the position it was found), Cold (apply ice to the injured area for periods of about 20 minutes with a thin barrier between ice and skin), and Elevate (elevate the injured part only if it does not cause more pain).",
+            "generated_answer": "I apologize, but the provided context does not specify what the RICE mnemonic stands for when providing care for injuries to muscles, bones, and joints. [Source: doc_001, Page: 116-135]",
+            "metrics": {
+                "rouge1_f1": 0.2150537634408602,
+                "rouge2_f1": 0.04395604395604396,
+                "rougeL_f1": 0.12903225806451613,
+                "bleu_score": 0.007799864255039006
+            },
+            "latency_seconds": 3.7671778202056885,
+            "token_usage": {
+                "prompt_tokens": 576,
+                "completion_tokens": 50,
+                "total_tokens": 626
+            },
+            "estimated_cost_usd": 7.76e-05,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "When should masks be offered to coughing patients in outpatient settings according to Respiratory Hygiene/Cough Etiquette guidelines?",
+            "reference_answer": "According to the text, masks should be offered to coughing patients and other symptomatic persons upon entry to the facility, at a minimum, during periods of increased respiratory infection activity in the community.",
+            "generated_answer": "Masks should be offered to coughing patients in outpatient settings when they have signs and symptoms of a respiratory infection [Source: doc_004, Page: 1-10]. These measures should be implemented starting from the point of entry to the facility and continue throughout the visit, aiming to contain respiratory secretions [Source: doc_004, Page: 1-10].",
+            "metrics": {
+                "rouge1_f1": 0.449438202247191,
+                "rouge2_f1": 0.2298850574712644,
+                "rougeL_f1": 0.2921348314606742,
+                "bleu_score": 0.13502946183463346
+            },
+            "latency_seconds": 4.09796667098999,
+            "token_usage": {
+                "prompt_tokens": 759,
+                "completion_tokens": 80,
+                "total_tokens": 839
+            },
+            "estimated_cost_usd": 0.00010790000000000001,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What is the recommended timing for taking prescribed medications before exercising for a person with exercise-induced asthma?",
+            "reference_answer": "According to the document, prescribed medications should be taken 30 to 60 minutes before exercising to help prevent asthma attacks during physical activity.",
+            "generated_answer": "For a person with exercise-induced asthma, it is recommended to take prescribed medications 30 to 60 minutes before exercising [Source: doc_001, Page: 148-154].",
+            "metrics": {
+                "rouge1_f1": 0.40816326530612246,
+                "rouge2_f1": 0.2553191489361702,
+                "rougeL_f1": 0.36734693877551017,
+                "bleu_score": 0.23498697990013487
+            },
+            "latency_seconds": 4.061134099960327,
+            "token_usage": {
+                "prompt_tokens": 616,
+                "completion_tokens": 46,
+                "total_tokens": 662
+            },
+            "estimated_cost_usd": 8e-05,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What is the minimum recommended ratio of infection preventionists to hospital beds according to the Guidelines Development Group?",
+            "reference_answer": "The Guidelines Development Group recommends that at least one infection preventionist per 250 beds should be available, though they suggest considering a higher ratio of one per 100 beds due to increasing patient acuity and complexity.",
+            "generated_answer": "The Guidelines Development Group considers a minimum ratio of one full-time or equivalent infection preventionist (nurse or physician) per 250 beds to be critical for a functioning infection prevention and control programme. [Source: doc_002, Page: 1-5]",
+            "metrics": {
+                "rouge1_f1": 0.45333333333333337,
+                "rouge2_f1": 0.2465753424657534,
+                "rougeL_f1": 0.3466666666666667,
+                "bleu_score": 0.13795156754464397
+            },
+            "latency_seconds": 3.782283067703247,
+            "token_usage": {
+                "prompt_tokens": 567,
+                "completion_tokens": 57,
+                "total_tokens": 624
+            },
+            "estimated_cost_usd": 7.950000000000001e-05,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What are the two forms of asthma medications and how do they differ?",
+            "reference_answer": "According to the text, asthma medications are available as long-term control medications and quick-relief medications. Long-term control medications prevent or reverse inflammation in the airway, decrease sensitivity, and should be taken every day. Quick-relief medications, also called short-acting bronchodilators, are used to stop an asthma attack by working quickly to relieve sudden swelling and lessen wheezing, coughing, and chest tightness.",
+            "generated_answer": "The two forms of asthma medications are long-term control medications and quick relief medications.\n\nLong-term control medications prevent or reverse inflammation in the airway and decrease sensitivity to asthma triggers. They work slowly over many hours and should be taken daily, regardless of whether asthma symptoms are present [Source: doc_001, Page: 148-154].",
+            "metrics": {
+                "rouge1_f1": 0.5619834710743802,
+                "rouge2_f1": 0.40336134453781514,
+                "rougeL_f1": 0.49586776859504134,
+                "bleu_score": 0.2560958825695314
+            },
+            "latency_seconds": 3.4610137939453125,
+            "token_usage": {
+                "prompt_tokens": 354,
+                "completion_tokens": 76,
+                "total_tokens": 430
+            },
+            "estimated_cost_usd": 6.58e-05,
+            "source_documents": [
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "How many deaths are caused by anaphylaxis annually in the United States, and which foods most commonly cause fatal allergic reactions?",
+            "reference_answer": "The text states that between 400 and 800 deaths are caused by anaphylaxis every year in the United States. Peanuts and tree nuts cause the most cases of fatal and near-fatal allergic reactions to food.",
+            "generated_answer": "Between 400 and 800 deaths are caused by anaphylaxis annually in the United States. [Source: doc_001, Page: 155] The provided context does not specify which foods most commonly cause fatal allergic reactions.",
+            "metrics": {
+                "rouge1_f1": 0.5797101449275361,
+                "rouge2_f1": 0.3880597014925374,
+                "rougeL_f1": 0.5217391304347826,
+                "bleu_score": 0.2839224283497694
+            },
+            "latency_seconds": 4.09338641166687,
+            "token_usage": {
+                "prompt_tokens": 816,
+                "completion_tokens": 53,
+                "total_tokens": 869
+            },
+            "estimated_cost_usd": 0.0001028,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "How do heart attack signals in women differ from those in men?",
+            "reference_answer": "While both men and women experience chest pain or discomfort, women are somewhat more likely to experience other warning signals such as shortness of breath, nausea or vomiting, back or jaw pain, and unexplained fatigue. Women may also experience atypical chest pain described as sudden, sharp but short-lived pain outside of the breastbone.",
+            "generated_answer": "Women are somewhat more likely to experience warning signals for a heart attack such as shortness of breath, nausea or vomiting, back or jaw pain, and unexplained fatigue or malaise. When women do experience chest pain, it may be atypical, presenting as sudden, sharp, but short-lived pain outside of the breastbone. Both men and women most commonly experience chest pain or discomfort. [Source: doc_001, Page: 29-45]",
+            "metrics": {
+                "rouge1_f1": 0.8130081300813008,
+                "rouge2_f1": 0.6446280991735537,
+                "rougeL_f1": 0.6341463414634146,
+                "bleu_score": 0.432966499213362
+            },
+            "latency_seconds": 3.879802942276001,
+            "token_usage": {
+                "prompt_tokens": 576,
+                "completion_tokens": 93,
+                "total_tokens": 669
+            },
+            "estimated_cost_usd": 9.48e-05,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What is the recommended daily limit for salt intake to help prevent hypertension and reduce the risk of heart disease and stroke?",
+            "reference_answer": "According to the text, keeping salt intake to less than 5 g per day helps prevent hypertension and reduces the risk of heart disease and stroke in the adult population.",
+            "generated_answer": "The recommended daily limit for salt intake is less than 5 g per day to help prevent hypertension and reduce the risk of heart disease and stroke in adults [Source: doc_003, Page: 1-10].",
+            "metrics": {
+                "rouge1_f1": 0.7384615384615385,
+                "rouge2_f1": 0.5714285714285715,
+                "rougeL_f1": 0.7076923076923077,
+                "bleu_score": 0.4049153725730702
+            },
+            "latency_seconds": 4.56985068321228,
+            "token_usage": {
+                "prompt_tokens": 786,
+                "completion_tokens": 47,
+                "total_tokens": 833
+            },
+            "estimated_cost_usd": 9.740000000000001e-05,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What strategies are recommended for infection prevention and control education for health care workers?",
+            "reference_answer": "The panel recommends that infection prevention and control education should be in place for all health care workers by utilizing team- and task-based strategies that are participatory and include bedside and simulation training to reduce the risk of health care-associated infection and antimicrobial resistance.",
+            "generated_answer": "The recommended strategies for infection prevention and control education for health care workers include:\n\n*   Utilizing team- and task-based strategies that are participatory. [Source: doc_002, Page: 11-14]\n*   Including bedside and simulation training. [Source: doc_002, Page: 11-14]\n*   Employing a practical, hands-on approach that incorporates individual experiences. [Source: doc_002, Page: 11-14]\n*   Providing ongoing education and competency-based training to ensure understanding and adherence to policies and procedures. [Source: doc_004, Page: 1-10]",
+            "metrics": {
+                "rouge1_f1": 0.46774193548387094,
+                "rouge2_f1": 0.3114754098360656,
+                "rougeL_f1": 0.43548387096774194,
+                "bleu_score": 0.15957297788756958
+            },
+            "latency_seconds": 3.6503162384033203,
+            "token_usage": {
+                "prompt_tokens": 535,
+                "completion_tokens": 149,
+                "total_tokens": 684
+            },
+            "estimated_cost_usd": 0.0001131,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What is the purpose of a core indicator list in routine health information systems?",
+            "reference_answer": "According to the document, a core indicator list consists of a limited set of key indicators that focuses data analysis on the most important indicators needed on a regular basis to monitor health services and inform decisions at various levels of the health system.",
+            "generated_answer": "The purpose of a core indicator list in routine health information systems is to focus data analysis on the most important indicators that are needed regularly to monitor health services and to inform decisions at various levels of the health system [Source: doc_005, Page: 6-7].",
+            "metrics": {
+                "rouge1_f1": 0.6593406593406593,
+                "rouge2_f1": 0.5168539325842696,
+                "rougeL_f1": 0.5934065934065934,
+                "bleu_score": 0.42645651266234197
+            },
+            "latency_seconds": 3.838369607925415,
+            "token_usage": {
+                "prompt_tokens": 485,
+                "completion_tokens": 57,
+                "total_tokens": 542
+            },
+            "estimated_cost_usd": 7.130000000000001e-05,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What should you do if a person who has fainted begins to vomit while waiting for help to arrive?",
+            "reference_answer": "According to the text, if the person vomits, you should roll him or her onto one side.",
+            "generated_answer": "If a person who has fainted begins to vomit while waiting for help to arrive, you should roll them onto one side [Source: doc_001, Page: 68-81].",
+            "metrics": {
+                "rouge1_f1": 0.4444444444444445,
+                "rouge2_f1": 0.18604651162790697,
+                "rougeL_f1": 0.39999999999999997,
+                "bleu_score": 0.0491860237427222
+            },
+            "latency_seconds": 6.106104373931885,
+            "token_usage": {
+                "prompt_tokens": 411,
+                "completion_tokens": 42,
+                "total_tokens": 453
+            },
+            "estimated_cost_usd": 5.79e-05,
+            "source_documents": [
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What is the recommended dose of epinephrine in an auto-injector for adults experiencing anaphylaxis?",
+            "reference_answer": "The text states that an auto-injector contains a preloaded dose of 0.3 mg of epinephrine for adults.",
+            "generated_answer": "The recommended dose of epinephrine in an auto-injector for adults experiencing anaphylaxis is 0.3 mg [Source: doc_001, Page: 154-159].",
+            "metrics": {
+                "rouge1_f1": 0.5714285714285715,
+                "rouge2_f1": 0.35000000000000003,
+                "rougeL_f1": 0.3333333333333333,
+                "bleu_score": 0.044353395455270214
+            },
+            "latency_seconds": 11.71830940246582,
+            "token_usage": {
+                "prompt_tokens": 879,
+                "completion_tokens": 41,
+                "total_tokens": 920
+            },
+            "estimated_cost_usd": 0.00010430000000000001,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "Why are older adults at greater risk of serious head injury compared to younger individuals?",
+            "reference_answer": "According to the text, as we age, the size of the brain decreases, resulting in more space between the surface of the brain and the inside of the skull. This space allows more movement of the brain within the skull, which can increase the likelihood of serious head injury.",
+            "generated_answer": "Older adults are at a greater risk of serious head injury because as they age, their brain size decreases. This leads to more space between the brain's surface and the inside of the skull, allowing for more movement of the brain within the skull, which increases the likelihood of serious injury [Source: doc_001, Page: 135-148].",
+            "metrics": {
+                "rouge1_f1": 0.6915887850467289,
+                "rouge2_f1": 0.4380952380952381,
+                "rougeL_f1": 0.5794392523364486,
+                "bleu_score": 0.32232405853505386
+            },
+            "latency_seconds": 6.640672206878662,
+            "token_usage": {
+                "prompt_tokens": 733,
+                "completion_tokens": 77,
+                "total_tokens": 810
+            },
+            "estimated_cost_usd": 0.00010410000000000001,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What are the essential organizational components of a national infection prevention and control programme?",
+            "reference_answer": "According to the context, the organization of national infection prevention and control programmes should include at least the following components: an appointed technical team of trained infection preventionists (including medical and nursing professionals) with formal infection prevention and control training and allocated time according to tasks; the team should have the authority to make decisions and to influence field implementation; and the team should have a protected and dedicated budget according to planned infection prevention and control activity and support by national authorities and leaders (for example, chief medical officer, minister of health).",
+            "generated_answer": "The essential organizational components of a national infection prevention and control programme, as proposed by the Guidelines Development Group, include:\n\n*   Clear objectives and functions [Source: doc_002, Page: 5-8].\n*   Appointed infection preventionists with a defined scope of responsibilities [Source: doc_002, Page: 5-8].\n*   Minimum objectives that encompass:\n    *   Goals for endemic and epidemic infections [Source: doc_002, Page: 5-8].\n    *   Development of recommendations for effective infection prevention and control processes and practices to prevent healthcare-associated infections and the spread of antimicrobial resistance [Source: doc_002, Page: 5-8].\n*   A technical team of trained infection preventionists, including medical and nursing professionals, who have formal training and allocated time for their tasks [Source: doc_002, Page: 5-8].",
+            "metrics": {
+                "rouge1_f1": 0.44549763033175355,
+                "rouge2_f1": 0.2105263157894737,
+                "rougeL_f1": 0.2559241706161137,
+                "bleu_score": 0.12986780751729643
+            },
+            "latency_seconds": 4.691128969192505,
+            "token_usage": {
+                "prompt_tokens": 533,
+                "completion_tokens": 199,
+                "total_tokens": 732
+            },
+            "estimated_cost_usd": 0.00013290000000000003,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "Which programmes should national infection prevention and control programmes establish linkages with?",
+            "reference_answer": "The text states that national infection prevention and control programmes should establish and maintain linkages with several key programmes including: Water sanitation and hygiene, Environmental authorities, Prevention and containment of antimicrobial resistance (including antimicrobial stewardship programmes), Tuberculosis and human immunodeficiency virus programmes, National referral laboratories, Laboratory biosafety, Occupational health, Quality of health service delivery, Patient safety, Waste management, Immunization programmes, and Maternal and child health.",
+            "generated_answer": "National infection prevention and control programmes should establish and maintain linkages with the following programmes and bodies:\n\n*   Water sanitation and hygiene\n*   Environmental authorities\n*   Prevention and containment of antimicrobial resistance, including an antimicrobial stewardship programme\n*   Tuberculosis, human immunodeficiency virus and other priority public health programmes\n*   National referral laboratories\n*   Laboratory biosafety\n*   Occupational health\n*   Quality of health service delivery\n*   Patient safety\n*   Waste management and other environmental issues\n*   Patients associations civil society bodies\n*   Scientific professional organizations (medical, nursing, and allied health professionals)\n*   Training establishments academia\n*   Relevant teams or programmes in other ministries\n*   Relevant sub-national bodies (provincial or district health offices)\n*   Immunization programme\n*   Maternal and child health\n\n[Source: doc_002, Page: 5-8]",
+            "metrics": {
+                "rouge1_f1": 0.6781609195402298,
+                "rouge2_f1": 0.5697674418604651,
+                "rougeL_f1": 0.6436781609195402,
+                "bleu_score": 0.17326060907937274
+            },
+            "latency_seconds": 5.79414963722229,
+            "token_usage": {
+                "prompt_tokens": 330,
+                "completion_tokens": 188,
+                "total_tokens": 518
+            },
+            "estimated_cost_usd": 0.0001082,
+            "source_documents": [
+                "custom_chunking"
+            ]
+        },
+        {
+            "question": "What is required for the successful implementation of infection prevention and control guidelines?",
+            "reference_answer": "According to the documents, successful implementation requires the education and training of relevant health care workers on the guideline recommendations and the monitoring of adherence with guideline recommendations. Additionally, early engagement and participation of stakeholders in the development and production of guidelines is emphasized to achieve consensus and support the implementation phases.",
+            "generated_answer": "Successful implementation of infection prevention and control guidelines requires local adaptation [Source: doc_002, Page: 5-8]. Additionally, over 80% of national documents address the need for training all staff in infection prevention and control measures [Source: doc_002, Page: 5-8]. Hands-on training on proper selection and use of PPE, as well as recommended steps for reprocessing devices, should be provided upon hire, annually, and when new devices are introduced or policies change [Source: doc_004, Page: 1-10]. Healthcare personnel (HCP) should also be required to demonstrate competency with reprocessing procedures after each training [Source: doc_004, Page: 1-10].",
+            "metrics": {
+                "rouge1_f1": 0.2580645161290323,
+                "rouge2_f1": 0.013071895424836602,
+                "rougeL_f1": 0.15483870967741936,
+                "bleu_score": 0.0039039318248579235
+            },
+            "latency_seconds": 4.823887825012207,
+            "token_usage": {
+                "prompt_tokens": 499,
+                "completion_tokens": 157,
+                "total_tokens": 656
+            },
+            "estimated_cost_usd": 0.0001127,
+            "source_documents": [
+                "custom_chunking",
+                "custom_chunking"
+            ]
+        }
+    ]
+}

@@ -66,18 +66,6 @@ def estimate_cost(token_usage, model_config):
     """
     Estimates cost based on token usage and loaded configuration.
     """
-    input_cost_per_1M = model_config.get("embedding_cost_per_1M_tokens", 0.0) # Using embedding cost as input proxy based on logic seen previously or strictly input logic
-    # Actually user json keys are "embedding_cost_per_1M_tokens" and "generation_cost_per_1M_tokens"
-    # Assuming "embedding_cost..." is meant to be input/prompt cost or if there is a misunderstanding in JSON keys.
-    # Looking at standard naming, usually it is input/output. 
-    # Let's assume:
-    # embedding_cost_per_1M_tokens -> Input (Context) Cost (as it involves embedding user query + context) - loosely mapped
-    # generation_cost_per_1M_tokens -> Output (Generation) Cost
-    
-    # Wait, usually "embedding" is for embedding models. "Prompt" is for chat models.
-    # However, based on the user's JSON structure:
-    # "gemini-2.0-flash": { "embedding_cost_per_1M_tokens": 0.1, "generation_cost_per_1M_tokens": 0.4 }
-    # This likely maps to Input/Output. I will use them as such.
     
     input_price = model_config.get("embedding_cost_per_1M_tokens", 0.0)
     output_price = model_config.get("generation_cost_per_1M_tokens", 0.0)
@@ -141,8 +129,10 @@ def evaluate_agent(test_file_path, output_file_path):
             
         except Exception as e:
             print(f"Error processing question: {question}. Error: {e}")
-            generated_answer = "Error generating response."
-            token_usage = {}
+            print("Stopping evaluation due to generation error.")
+            break 
+            # generated_answer = "Error generating response."
+            # token_usage = {}
 
         end_time = time.time()
         latency = end_time - start_time
@@ -154,6 +144,7 @@ def evaluate_agent(test_file_path, output_file_path):
         cost = estimate_cost(token_usage, model_config)
         
         result_entry = {
+            'model': MODEL_NAME,
             'question': question,
             'reference_answer': reference_answer,
             'generated_answer': generated_answer,
@@ -177,18 +168,36 @@ def evaluate_agent(test_file_path, output_file_path):
     # Aggregated stats
 
     # Aggregated stats
-    avg_latency = total_latency / len(test_data) if test_data else 0
+    latencies = [r['latency_seconds'] for r in results]
+    avg_latency = np.mean(latencies) if latencies else 0
+    p95_latency = np.percentile(latencies, 95) if latencies else 0
+    
     avg_rouge1 = np.mean([r['metrics']['rouge1_f1'] for r in results]) if results else 0
     avg_rougeL = np.mean([r['metrics']['rougeL_f1'] for r in results]) if results else 0
     avg_bleu = np.mean([r['metrics']['bleu_score'] for r in results]) if results else 0
     
+    avg_cost_per_query = total_cost / len(test_data) if test_data else 0
+    cost_per_1k_queries = avg_cost_per_query * 1000
+
     summary = {
         'timestamp': datetime.now().isoformat(),
+        'model': MODEL_NAME,
+        'config': {
+            'n_results': 5,
+            'k_candidates': 40,
+            'doc_diversity': 0.2
+        },
         'total_samples': len(test_data),
-        'average_latency_seconds': avg_latency,
-        'total_cost_usd': total_cost,
-        'average_cost_per_query_usd': total_cost / len(test_data) if test_data else 0,
-        'metrics_summary': {
+        'latency': {
+            'average_seconds': avg_latency,
+            'p95_seconds': p95_latency
+        },
+        'cost': {
+            'total_usd': total_cost,
+            'average_per_query_usd': avg_cost_per_query,
+            'estimated_per_1k_queries_usd': cost_per_1k_queries
+        },
+        'quality_metrics': {
             'average_rouge1_f1': avg_rouge1,
             'average_rougeL_f1': avg_rougeL,
             'average_bleu_score': avg_bleu
@@ -201,12 +210,21 @@ def evaluate_agent(test_file_path, output_file_path):
     with open(output_file_path, 'w', encoding='utf-8') as f:
         json.dump(summary, f, indent=4)
         
-    print(f"\nEvaluation Complete!")
-    print(f"Results saved to: {output_file_path}")
-    print(f"Average Latency: {avg_latency:.2f}s")
-    print(f"Total Cost: ${total_cost:.6f}")
-    print(f"Avg ROUGE-1: {avg_rouge1:.4f}")
-    print(f"Avg BLEU: {avg_bleu:.4f}")
+    print(f"\n=== BENCHMARK REPORT: {MODEL_NAME} ===")
+    print(f"Total Samples: {len(test_data)}")
+    print(f"\n--- Speed/Latency ---")
+    print(f"Average Response Time: {avg_latency:.2f}s")
+    print(f"P95 Response Time:     {p95_latency:.2f}s")
+    print(f"\n--- Cost Efficiency ---")
+    print(f"Total Cost (Run):      ${total_cost:.6f}")
+    print(f"Avg Cost per Query:    ${avg_cost_per_query:.6f}")
+    print(f"Cost per 1k Queries:   ${cost_per_1k_queries:.4f}")
+    print(f"\n--- Accuracy/Quality ---")
+    print(f"Avg ROUGE-1:           {avg_rouge1:.4f}")
+    print(f"Avg ROUGE-L:           {avg_rougeL:.4f}")
+    print(f"Avg BLEU:              {avg_bleu:.4f}")
+    print(f"==========================================")
+    print(f"Detailed results saved to: {output_file_path}")
 
 if __name__ == "__main__":
     test_file = "./data/healthcare_golden_dataset.json"
