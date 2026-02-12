@@ -2,6 +2,10 @@
 
 A sophisticated Retrieval-Augmented Generation (RAG) system designed for healthcare queries, featuring a custom-built data pipeline, advanced hybrid retrieval with reranking, and a transparent user interface.
 
+
+Uploading Health_Agent - DEMO.mp4…
+
+
 ## 🏗️ Architecture & Data Pipeline
 
 This system moves beyond standard RAG implementations by focusing heavily on data quality and contextual integrity.
