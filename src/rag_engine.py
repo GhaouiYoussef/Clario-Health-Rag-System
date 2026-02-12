@@ -25,7 +25,7 @@ class HuggingFaceEmbeddingFunction(chromadb.EmbeddingFunction):
         return embeddings.tolist()
 
 class HealthcareRAG:
-    def __init__(self, persist_directory: str = "./data/chroma_db_VI", model_name: str = "gemini-2.0-flash"):
+    def __init__(self, persist_directory: str = "./data/chroma_db_VI", model_name: str = "gemini-2.5-flash"):
         self.persist_directory = persist_directory
         self.client = chromadb.PersistentClient(path=persist_directory)
         self.embedding_function = HuggingFaceEmbeddingFunction()
@@ -55,6 +55,44 @@ class HealthcareRAG:
         except Exception as e:
             print(f"Error building BM25 index: {e}")
             self.bm25 = None
+
+    def query_router(self, query: str) -> Dict[str, Any]:
+        """
+        Guardrail Router:
+        1. Checks for safety/relevance.
+        2. Refines the query for better retrieval if safe.
+        3. Returns decision and potentially modified query.
+        """
+        prompt = f"""You are a query router and safety guardrail for a healthcare RAG system.
+        
+        Task 1: Safety Check
+        - Is this query asking for medical advice, dangerous information, or is it out of scope (not health-related)?
+        - Reject if: "I have chest pain, what do I do?" (Emergency), "How to make a bomb?" (Harmful), "Write python code" (Out of Scope).
+        - Accept if: General health info like "What are flu symptoms?", "Explain CPR".
+        
+        Task 2: Query Refinement
+        - If safe, rewrite the query to be more search-friendly for a vector database (e.g., adding keywords, removing conversational filler).
+        
+        Input Query: "{query}"
+        
+        Output JSON Format:
+        {{
+            "action": "proceed" or "reject",
+            "reason": "Safe to process" or "Explanation for rejection",
+            "refined_query": "The optimized search query" (only if proceed)
+        }}
+        """
+        
+        try:
+            response = self.generate_content(prompt)
+            # Basic cleanup to ensure JSON parsing
+            clean_text = response.text.replace('```json', '').replace('```', '').strip()
+            decision = json.loads(clean_text)
+            return decision
+        except Exception as e:
+            print(f"Router Error: {e}")
+            # Fail-safe: Allow to proceed with original query if router fails
+            return {"action": "proceed", "reason": "Router bypass error", "refined_query": query}
 
     def generate_content(self, prompt: str) -> Any:
         response = self.client_gemini.models.generate_content(
@@ -248,8 +286,21 @@ class HealthcareRAG:
     def get_answer(self, query: str, n_results: int = 5, k_candidates: int = 20, doc_diversity: float = 0.5) -> Dict[str, Any]:
         """Retrieves context and generates answer using Gemini directly."""
         
-        # 1. Retrieve using Hybrid Reranking
-        hits = self.hybrid_retrieval(query, n_results=n_results, k_candidates=k_candidates, doc_diversity_ratio=doc_diversity)
+        # 0. Router / Guardrail Check
+        router_decision = self.query_router(query)
+        
+        if router_decision.get('action') == 'reject':
+            return {
+                "result": f"⚠️ Query Refused: {router_decision.get('reason', 'Safety violation')}. Please consult a professional.",
+                "source_documents": [],
+                "token_usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
+            }
+            
+        search_query = router_decision.get('refined_query', query)
+        print(f"Router Refined Query: '{query}' -> '{search_query}'")
+        
+        # 1. Retrieve using Hybrid Reranking (using REFINED query)
+        hits = self.hybrid_retrieval(search_query, n_results=n_results, k_candidates=k_candidates, doc_diversity_ratio=doc_diversity)
         
         context_parts = []
         source_docs = [] # For return format compatibility

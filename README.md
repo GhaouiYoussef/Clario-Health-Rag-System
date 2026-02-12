@@ -6,6 +6,7 @@ A RAG-based Q&A agent for general healthcare questions, grounded in curated docu
 
 - **Healthcare Q&A**: Answers general health questions based *only* on provided documents.
 - **Safety First**: Clear disclaimers, triage suggestions, and refusal to partial diagnosis.
+- **Guardrail Router**: Semantic routing to detect unsafe queries and refine safe ones before retrieval.
 - **Citations**: All answers include references to specific source documents and chunks.
 - **Evaluation**: Tools to benchmark accuracy, latency, and cost.
 
@@ -31,13 +32,14 @@ A RAG-based Q&A agent for general healthcare questions, grounded in curated docu
 
 5.  **Run Evaluation**:
     ```bash
-    python evaluation/benchmark.py
+    python evaluation/evaluate_agent.py
     ```
 
 ## Architecture
 
-- **Retrieval**: Uses ChromaDB with OpenAI Embeddings. Hybrid search or reranking can be enabled.
-- **Generation**: OpenAI GPT-4o (or similar) with strict system prompts for safety.
+- **Routing**: LLM-based Guardrail Router parses intent for safety and optimizes queries.
+- **Retrieval**: Hybrid Search (BM25 + ChromaDB) with Cross-Encoder Reranking and RRF Fusion.
+- **Generation**: Gemini 2.5 Flash/Pro with strict system prompts for safety.
 - **UI**: Streamlit for easy interaction.
 
 ## Disclaimer
