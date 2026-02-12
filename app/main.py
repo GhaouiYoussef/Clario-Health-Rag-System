@@ -10,7 +10,7 @@ from src.rag_engine import HealthcareRAG
 from src.utils import load_documents
 from dotenv import load_dotenv
 
-MODEL_NAME = 'gemini-2.5-flash'
+MODEL_NAME = 'gemini-2.0-flash'
 # Load environment variables
 load_dotenv()
 
@@ -32,12 +32,15 @@ with st.sidebar:
     )
     
     if db_choice == "Custom Chunking (w/ Images)":
-        persist_dir = "./data/chroma_db_custom"
-    else:
-        persist_dir = "./data/chroma_db_normal"
+        # persist_dir = "./data/chroma_db_VI"
+        persist_dir = "./data/chroma_db_chap_based"
+
 
     st.divider()
     st.markdown("### Settings")
+    n_results = st.slider("Num Results (Final)", 1, 10, 5)
+    k_candidates = st.slider("Num Candidates (Initial)", 10, 50, 40)
+    doc_div = st.slider("Document Diversity", 0.1, 1.0, 0.5)
     st.info("Ensure GOOGLE_API_KEY is set in .env")
 
 # Initialize RAG Agent based on selection
@@ -45,7 +48,7 @@ if "rag_agent" not in st.session_state or st.session_state.get("current_db") != 
     if os.path.exists(persist_dir):
         st.session_state.rag_agent = HealthcareRAG(persist_directory=persist_dir, model_name=MODEL_NAME)
         st.session_state.current_db = persist_dir
-        # st.success(f"Loaded Knowledge Base: {db_choice}")
+        st.success(f"Loaded Knowledge Base: {db_choice}")
     else:
         st.error(f"Database not found at {persist_dir}. Please run `python ingest_data.py` first.")
 
@@ -73,7 +76,13 @@ if prompt := st.chat_input("Ask a healthcare question..."):
     with st.chat_message("assistant"):
         with st.spinner("Consulting knowledge base..."):
             try:
-                response = st.session_state.rag_agent.get_answer(prompt)
+                # Use user-configured parameters from sidebar
+                response = st.session_state.rag_agent.get_answer(
+                    prompt, 
+                    n_results=n_results, 
+                    k_candidates=k_candidates,
+                    doc_diversity=doc_div
+                )
                 answer_text = response['result']
                 source_docs = response['source_documents']
                 
@@ -89,9 +98,15 @@ if prompt := st.chat_input("Ask a healthcare question..."):
                     else:
                         meta = doc.metadata
 
-                    source_name = os.path.basename(meta.get('source', 'Unknown'))
-                    page = meta.get('page', 'N/A')
+                    # Improved source mapping logic
+                    raw_source = meta.get('doc_name', meta.get('source', 'Unknown'))
+                    source_name = os.path.basename(raw_source)
+                    page = meta.get('page_range', meta.get('page', 'N/A'))
+                    title = meta.get('title', '')
+                    
                     source_key = f"{source_name} (Page {page})"
+                    if title:
+                        source_key = f"{title} - {source_key}"
                     
                     if source_key not in seen_sources:
                         full_response += f"\n- {source_key}"
@@ -109,9 +124,13 @@ if prompt := st.chat_input("Ask a healthcare question..."):
                             meta = doc.metadata
                             content = doc.page_content
                         
-                        source_name = os.path.basename(meta.get('source', 'Unknown'))
-                        page = meta.get('page', 'N/A')
-                        st.markdown(f"**{idx+1}. {source_name} (Page {page})**")
+                        raw_source = meta.get('doc_name', meta.get('source', 'Unknown'))
+                        source_name = os.path.basename(raw_source)
+                        page = meta.get('page_range', meta.get('page', 'N/A'))
+                        title = meta.get('title', 'Unknown Section')
+                        
+                        st.markdown(f"**{idx+1}. {title}**")
+                        st.caption(f"File: {source_name} | Page: {page}")
                         st.text(content[:300] + "..." if len(content) > 300 else content)
                         st.divider()
 
