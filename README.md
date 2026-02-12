@@ -2,9 +2,9 @@
 
 A sophisticated Retrieval-Augmented Generation (RAG) system designed for healthcare queries, featuring a custom-built data pipeline, advanced hybrid retrieval with reranking, and a transparent user interface.
 
+Video Demo Link: https://drive.google.com/file/d/11njJyBYZG2XwlsMzdftiT3MFEggNcdiO/view?usp=sharing
 
-Uploading Health_Agent - DEMO.mp4…
-
+<img width="1889" height="901" alt="image" src="https://github.com/user-attachments/assets/531e3b2a-298d-4eba-adf9-dd2b915678b8" />
 
 ## 🏗️ Architecture & Data Pipeline
 
@@ -17,6 +17,10 @@ This system moves beyond standard RAG implementations by focusing heavily on dat
     *   Instead of always splitting at arbitrary character limits, we implemented **"Smart Chunking"**.
     *   This logic respects sentence boundaries and paragraph breaks (checking for points and newlines) to ensure chunks are semantically complete and never cut halfway through a thought.
     *   **Context Preservation**: Meaningful chapter titles are prepended to every chunk within that section. This ensures that even small text fragments retain their broader context during retrieval.
+<p align="center">
+  <img width="300" height="800" alt="Data-Ingestion" 
+       src="https://github.com/user-attachments/assets/09241e96-d220-4117-9066-bfd725969d37" />
+</p>
 
 ### 2. The RAG Engine
 *   **Guardrail & Query Router**: 
@@ -26,21 +30,22 @@ This system moves beyond standard RAG implementations by focusing heavily on dat
     *   *Note: This step introduces a slight latency (~3 seconds) but significantly improves safety and retrieval accuracy.*
 *   **Hybrid Retrieval**: Combines sparse keyword search (BM25) with dense vector search (ChromaDB) to capture both exact matches and semantic meaning.
 *   **Reranking**: A Cross-Encoder model re-scores the retrieved candidates to promote the most relevant documents to the top before generation.
-*   **Generation**: Uses **Google Gemini 2.5 (Flash/Pro)** to synthesize answers based *strictly* on the retrieved context.
+*   **Generation**: Uses **Google Gemini 2.5 (Flash/Flash Lite)** to synthesize answers based *strictly* on the retrieved context.
 
 ### 3. User Interface (Streamlit)
 *   **Observability**: The UI provides detailed insights into the "Black Box" of RAG. Users can see real-time status updates for every step (Guardrails -> Search -> Rerank -> Generate).
 *   **Transparency**: Users can view the exact chunks used to generate the answer, including the **Chunk ID**, **Relevance Score**, and the **Full Content** of the chunk via expandable sections.
 *   **Customization**: The sidebar allows users to swap between model variants (Flash vs. Pro) and tune retrieval parameters.
-
----
+<p align="center">
+  <img width="600" height="800" alt="rqg-system" src="https://github.com/user-attachments/assets/48bdd7a5-26b3-4dd7-a4f9-9a6ee510d58f" />
+</p>
 
 ## 📊 Datasets & Evaluation
 
 To ensure reliability, we generated custom evaluation datasets.
 
 ### Dataset Creation
-*   **Synthetic Generation**: Leveraging the **NVIDIA API (Llama 3 / Kim)**, we created synthetic Q&A pairs.
+*   **Synthetic Generation**: Leveraging the **NVIDIA API (moonshotai/kimi-k2.5)**, we created synthetic Q&A pairs.
 *   **Methodology**: The generator randomly selected healthcare topics and retrieved documents to formulate ground-truth questions and answers.
 *   **Datasets**:
     1.  **Safety/Adversarial Dataset**: Used to test the Router's ability to refuse out-of-scope or dangerous queries.
